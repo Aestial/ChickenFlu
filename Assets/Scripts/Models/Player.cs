@@ -18,7 +18,7 @@ public enum PlayerState
 public struct GraphicState 
 {
     public PlayerState state;
-    public Color color;
+	public Material material;
 }
 
 public class Player : MonoBehaviour 
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerState state;
 
-    private SpriteRenderer sr;
+	private MeshRenderer meshRenderer;
 
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         this.state = PlayerState.Human;
         this.health = 1.0f;
         // Temporary
-        this.sr = GetComponent<SpriteRenderer>();
+		this.meshRenderer = GetComponent<MeshRenderer>();
         //
         // Notifier
         notifier = new Notifier();
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
     public void Mutate(PlayerState newState)
     {
         this.state = newState;
-        this.sr.color = GStates[(int)this.state].color;
+		this.meshRenderer.material = GStates[(int)this.state].material;
         //Debug.Log("Player " + this.number + "'s new state: " + this.state);
     }
 
