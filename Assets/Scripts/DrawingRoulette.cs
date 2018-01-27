@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DrawingRoulette : MonoBehaviour {
+public class DrawingRoulette : Singleton<DrawingRoulette> {
+
+    private Notifier notifier;
+    public const string ON_SELECTED_INFECTED = "OnSelectedInfected";
 
     public Sprite imagePlayer;
     //public AudioClip audio;
@@ -22,9 +25,9 @@ public class DrawingRoulette : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        notifier = new Notifier();
+
         audioSource = GetComponent<AudioSource>();
-        //audioSource.clip = audio;
-        //audioSource.volume = 1.0f;
         numPlayers = transform.childCount;
         playersCard = new Image[numPlayers];
 
@@ -91,7 +94,7 @@ public class DrawingRoulette : MonoBehaviour {
             playersCard[currentPlayer].color = Color.red;
             playersCard[lastCurrent].color = Color.gray;
             Debug.Log("First Player infectec " + currentPlayer);
-           
+            OnSelected(currentPlayer); 
         }
     }
 
@@ -104,8 +107,18 @@ public class DrawingRoulette : MonoBehaviour {
         {
             Invoke("changeSelected", (time * i)+delay);   
         }
-        
+    }
 
+    private void OnSelected(int select)
+    {
+        playerSelected = select;
+        notifier.Notify(ON_SELECTED_INFECTED, playerSelected);
+    }
+
+
+    void OnDestroy()
+    {
+        notifier.UnsubcribeAll();
     }
 
 }
