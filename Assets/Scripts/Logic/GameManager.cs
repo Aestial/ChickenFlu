@@ -13,50 +13,96 @@ public class GameManager : Singleton<GameManager>
     private Player[] players;
     [SerializeField]
     private int infected;
+    [SerializeField]
+    private int remain;
+
+    private Notifier notifier;
 
 	void Start () 
     {
+        this.remain = this.numPlayers;
+
         this.players = new Player[this.numPlayers];
         for (int i = 0; i < this.numPlayers; i++) 
         {
-            this.players[i] = Instantiate<Player>(this.playerPrefab, positions[i], Quaternion.identity);
+            this.players[i] = Instantiate<Player>(this.playerPrefab, this.positions[i], Quaternion.identity);
             this.players[i].Number = i;
         }
+        // Notifier
+        notifier = new Notifier();
+        notifier.Subscribe(Player.ON_DIE, HandleOnDie);
+
         StartCoroutine(this.Roulette());
+        StateManager.Instance.State = GameState.Roulette;
 	}
 
-    private IEnumerator Roulette () 
+    private IEnumerator Roulette()
     {
         yield return new WaitForSeconds(1.8f);
         this.infected = Random.Range(0, this.numPlayers);
-        Debug.Log(this.infected);
+        //Debug.Log(this.infected);
         this.players[this.infected].Mutate(PlayerState.Infected);
+        StateManager.Instance.State = GameState.Battle;
     }
-	
+    	
 	void Update () 
     {
-        if (Input.GetKeyUp(KeyCode.Alpha1))
+        if (StateManager.Instance.State == GameState.Battle)
         {
-            this.Infect(0);
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
-        { 
-            this.Infect(1);
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            this.Infect(2);
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha4))
-        {
-            this.Infect(3);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                this.Infect(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                this.Infect(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                this.Infect(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                this.Infect(3);
+            }
         }
 	}
+ 
     private void Infect(int player)
     {
-        this.players[this.infected].Mutate(PlayerState.Human);
-        this.infected = player;
-        Debug.Log(this.infected);
-        this.players[this.infected].Mutate(PlayerState.Infected);
+        if (this.infected != player &&
+            this.players[player].State == PlayerState.Human)
+        {
+            this.players[player].Mutate(PlayerState.Infected);
+
+            if (this.players[this.infected].State == PlayerState.Infected)
+            {
+                this.players[this.infected].Mutate(PlayerState.Human);
+            }
+            else if (this.players[this.infected].State == PlayerState.MadChicken)
+            {
+                this.players[this.infected].Mutate(PlayerState.Chicken);
+            }
+            this.infected = player;
+        }
+    }
+
+    private void HandleOnDie(params object[] args)
+    {
+        UpdateRemain();
+    }
+
+    private void UpdateRemain()
+    {
+        remain--;
+        if (remain <= 1)
+        {
+            StateManager.Instance.State = GameState.End;
+            this.players[this.infected].Mutate(PlayerState.Chicken);
+        }
+    }
+    void OnDestroy()
+    {
+        notifier.UnsubcribeAll();
     }
 }

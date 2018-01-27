@@ -194,12 +194,12 @@ MonoBehaviour:
   playerPrefab: {fileID: 114861232755051890, guid: 9072e77f58e57473bacfe891d0f59b90,
     type: 2}
   positions:
-  - {x: 1, y: -1, z: 0}
+  - {x: -1, y: 1, z: 0}
   - {x: 1, y: 1, z: 0}
   - {x: -1, y: -1, z: 0}
-  - {x: -1, y: 1, z: 0}
+  - {x: 1, y: -1, z: 0}
   players: []
-  chicken: 0
+  infected: 0
 --- !u!1 &937315372
 GameObject:
   m_ObjectHideFlags: 0

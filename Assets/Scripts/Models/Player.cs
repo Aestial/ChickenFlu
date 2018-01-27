@@ -36,25 +36,36 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer sr;
 
+    private Notifier notifier;
+    public const string ON_DIE = "OnDie";
+
     public int Number
     {
         get { return number; }
         set { number = value; }
     }
 
+    public PlayerState State
+    {
+        get { return state; }
+        set { state = value; }
+    }
+
 	void Start () 
     {
+        this.state = PlayerState.Human;
+        this.health = 1.0f;
         // Temporary
         this.sr = GetComponent<SpriteRenderer>();
         //
-        this.state = PlayerState.Human;
-        this.health = 1.0f;
+        // Notifier
+        notifier = new Notifier();
+
 	}
 
     private void UpdateHealth (float amount)
     {
         this.health += amount;
-        Debug.Log(this.health);
         this.CheckHealth();
     }
 
@@ -63,21 +74,27 @@ public class Player : MonoBehaviour
         if (this.health <= 0.0f) 
         {
             Debug.Log("Player " + number + " is dead!");
+            notifier.Notify(ON_DIE);
             this.Mutate(PlayerState.MadChicken);
         }
     }
+
     public void Mutate(PlayerState newState)
     {
         this.state = newState;
         this.sr.color = GStates[(int)this.state].color;
-        Debug.Log("Player " + this.number + "'s new state: " + this.state);
+        //Debug.Log("Player " + this.number + "'s new state: " + this.state);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void Update () 
+    {
         if (this.state == PlayerState.Infected) 
         {
             this.UpdateHealth(-infectedAmount);
         }
 	}
+    void OnDestroy()
+    {
+        notifier.UnsubcribeAll();
+    }
 }

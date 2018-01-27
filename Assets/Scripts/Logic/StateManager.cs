@@ -1,8 +1,19 @@
 ﻿using UnityEngine;
+public enum GameState
+{
+    /** Game start */
+    Start,
+    /** Randolm select */
+    Roulette,
+    /** Battle Loop */
+    Battle,
+    /** Game end */
+    End
+}
 public class StateManager : Singleton<StateManager>
 {
     [Header("Debug")]
-    [SerializeField] 
+    [SerializeField]
     private GameState state;
 
     private Notifier notifier;
