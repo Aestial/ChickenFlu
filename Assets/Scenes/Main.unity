@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb0b3e7b08bf42f09ec9f7d56547d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayers: 2
+  numPlayers: 3
   playerPrefab: {fileID: 114207968607053306, guid: 2f8a9c3c54cc340e78360aff5fabedce,
     type: 2}
   positions:

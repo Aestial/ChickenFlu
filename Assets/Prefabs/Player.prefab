@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf49d2d10ca4a7f8678dfae32afd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectedAmount: 0.0005
+  infectedAmount: 0.005
   GStates:
   - state: 0
     material: {fileID: 2100000, guid: 975fb4b962c31424c9270050982a1017, type: 2}
@@ -211,6 +211,7 @@ MonoBehaviour:
   number: 0
   health: 0
   state: 0
+  canBeInfected: 0
 --- !u!114 &114579082034454012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbdc3b1f8fc44265b738de32b84dded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infectSafeTime: 1
 --- !u!114 &114785891514488624
 MonoBehaviour:
   m_ObjectHideFlags: 1

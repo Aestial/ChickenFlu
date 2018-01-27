@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     private float health;
     [SerializeField]
     private PlayerState state;
+    [SerializeField]
+    private bool canBeInfected;
 
 	private MeshRenderer meshRenderer;
 
@@ -51,10 +53,17 @@ public class Player : MonoBehaviour
         set { state = value; }
     }
 
+    public bool CanBeInfected
+    {
+        get { return canBeInfected; }
+        set { canBeInfected = value; }
+    }
+
 	void Start () 
     {
-        this.state = PlayerState.Human;
         this.health = 1.0f;
+        this.state = PlayerState.Human;
+        this.canBeInfected = true;
         // Temporary
 		this.meshRenderer = GetComponent<MeshRenderer>();
         //
@@ -62,12 +71,6 @@ public class Player : MonoBehaviour
         notifier = new Notifier();
 
 	}
-
-    private void UpdateHealth (float amount)
-    {
-        this.health += amount;
-        this.CheckHealth();
-    }
 
     private void CheckHealth()
     {
@@ -77,6 +80,12 @@ public class Player : MonoBehaviour
             notifier.Notify(ON_DIE);
             this.Mutate(PlayerState.MadChicken);
         }
+    }
+
+    public void UpdateHealth(float amount)
+    {
+        this.health += amount;
+        this.CheckHealth();
     }
 
     public void Mutate(PlayerState newState)

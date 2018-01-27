@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FluTransmission : MonoBehaviour 
 {
+    [SerializeField] private float infectSafeTime = 1.0f;
     private Player player;
 	
 	void Start () 
@@ -16,22 +17,33 @@ public class FluTransmission : MonoBehaviour
 		
 	}
 
-	void OnCollisionEnter(Collision col) 
+	void OnCollisionExit(Collision col) 
     {
         if (col.transform.tag == "Player")
         {
-            Debug.Log("Flu Trans - Collided with: " + col.transform.name);    
+            //Debug.Log("Flu Trans - Collided with: " + col.transform.name);    
             if (this.player.State == PlayerState.Infected ||
                 this.player.State == PlayerState.MadChicken)
             {
-                Debug.Log("Flu Trans - Transmited to: " + col.transform.name);    
                 Player other = col.transform.GetComponent<Player>();
-                GameManager.Instance.Infect(other.Number);
+                if (other.CanBeInfected)
+                {
+                    Debug.Log("Flu Trans - Transmited to: " + other.transform.name);    
+                    GameManager.Instance.Infect(other.Number);
+                    StartCoroutine(this.InfectSafe());
+                }
             }
         }
 	}
 
-	public void Infected() 
+    private IEnumerator InfectSafe()
+    {
+        this.player.CanBeInfected = false;
+        yield return new WaitForSeconds(infectSafeTime);
+        this.player.CanBeInfected = true;
+    }
+	
+    public void Infected() 
     {
 
 	}
