@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf49d2d10ca4a7f8678dfae32afd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectedAmount: 0.05
+  infectedAmount: 0.01
   GStates:
   - state: 0
     material: {fileID: 2100000, guid: 975fb4b962c31424c9270050982a1017, type: 2}

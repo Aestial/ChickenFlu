@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
     {
         this.state = newState;
 		this.meshRenderer.material = GStates[(int)this.state].material;
-        //Debug.Log("Player " + this.number + "'s new state: " + this.state);
+        Debug.Log("Player " + this.number + "'s new state: " + this.state);
     }
 
     void Update () 
