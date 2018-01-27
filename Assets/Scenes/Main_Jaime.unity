@@ -396,8 +396,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369338754}
-  m_LocalRotation: {x: 0.15411738, y: -0.84577906, z: 0.3539164, w: 0.3683054}
-  m_LocalPosition: {x: 5.988494, y: 10.1717825, z: 6.170558}
+  m_LocalRotation: {x: 0.7071069, y: 0.00000017881393, z: -0.000000029802322, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -645,9 +645,9 @@ MonoBehaviour:
     type: 2}
   positions:
   - {x: -1, y: 1, z: 1}
-  - {x: 1, y: 1, z: 2}
-  - {x: -1, y: 1, z: 3}
-  - {x: 1, y: 1, z: 4}
+  - {x: 1, y: 1, z: 1}
+  - {x: -1, y: 1, z: -1}
+  - {x: 1, y: 1, z: -1}
   players: []
   infected: 0
   remain: 0
