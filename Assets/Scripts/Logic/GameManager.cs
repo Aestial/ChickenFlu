@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
         for (int i = 0; i < this.numPlayers; i++) 
         {
             this.players[i] = Instantiate<Player>(this.playerPrefab, this.positions[i], Quaternion.identity);
-			this.players [i].name = "Player" + (i+1).ToString();
+			this.players [i].name = "Player" + (i).ToString();
             this.players[i].Number = i;
         }
         this.roulette = GetComponent<RouletteController>();
@@ -50,8 +50,7 @@ public class GameManager : Singleton<GameManager>
         this.roulette.Initialize(numPlayers);
         //this.infected = Random.Range(0, this.numPlayers);
         //Debug.Log(this.infected);
-        this.players[this.infected].Mutate(PlayerState.Infected);
-        StateManager.Instance.State = GameState.Battle;
+        //this.players[this.infected].Mutate(PlayerState.Infected);
     }
     	
 	void Update () 
@@ -77,7 +76,7 @@ public class GameManager : Singleton<GameManager>
         }
 	}
  
-    private void Infect(int player)
+    public void Infect(int player)
     {
         if (this.infected != player &&
             this.players[player].State == PlayerState.Human)
@@ -104,7 +103,9 @@ public class GameManager : Singleton<GameManager>
     private void HandleOnSelectedInfected(object[] args)
     {
         this.infected = (int)args[0];
-        Debug.Log("manager infected" + infected);
+        Debug.Log("Manager - Infected: " + infected);
+        this.players[this.infected].Mutate(PlayerState.Infected);
+        StateManager.Instance.State = GameState.Battle;
     }
 
     private void UpdateRemain()

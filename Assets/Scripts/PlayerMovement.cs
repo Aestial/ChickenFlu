@@ -25,19 +25,23 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
-		if (name == "Player1") {
-            KeyboardMovement (InputType.WASD);
-		}
-
-		if (name == "Player2") {
-			TouchMovement ();	
-		}
-
-        if (name == "Player3")
+        if (StateManager.Instance.State == GameState.Battle)
         {
-            KeyboardMovement(InputType.Arrows);
-        }
+            if (name == "Player0")
+            {
+                KeyboardMovement(InputType.WASD);
+            }
+
+            if (name == "Player1")
+            {
+                KeyboardMovement(InputType.Arrows);
+            }
+
+            if (name == "Player2")
+            {
+                TouchMovement();
+            }   
+        }		
 	}
 
 	void TouchMovement () 
@@ -45,7 +49,10 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.touchCount > 0) {
 			Vector3 movement = new Vector3 (CnInputManager.GetAxis("Horizontal"), 0f, CnInputManager.GetAxis("Vertical"));
 			selfRigidbody.velocity = (movement * speed);
-			transform.rotation = Quaternion.LookRotation(movement);
+            if (movement != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(movement);    
+            }
 		}
 	}
 

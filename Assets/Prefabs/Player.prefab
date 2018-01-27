@@ -19,16 +19,16 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4785738996969576}
+  - component: {fileID: 114207968607053306}
   - component: {fileID: 33368183422321884}
-  - component: {fileID: 136602730132384700}
   - component: {fileID: 23659868947786830}
+  - component: {fileID: 136602730132384700}
+  - component: {fileID: 114579082034454012}
   - component: {fileID: 54627748400086434}
   - component: {fileID: 114785891514488624}
-  - component: {fileID: 114579082034454012}
-  - component: {fileID: 114207968607053306}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1160457443797412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.18, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4637959908915160}
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf49d2d10ca4a7f8678dfae32afd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectedAmount: 0.01
+  infectedAmount: 0.0005
   GStates:
   - state: 0
     material: {fileID: 2100000, guid: 975fb4b962c31424c9270050982a1017, type: 2}

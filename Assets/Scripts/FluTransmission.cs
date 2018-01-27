@@ -2,29 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FluTransmission : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
+public class FluTransmission : MonoBehaviour 
+{
+    private Player player;
+	
+	void Start () 
+    {
+        this.player = GetComponent<Player>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 		
 	}
 
-	void OnCollisionEnter(Collision currentCollision) {
-
-
-
-		Debug.Log (currentCollision.transform.name);
-
+	void OnCollisionEnter(Collision col) 
+    {
+        if (col.transform.tag == "Player")
+        {
+            Debug.Log("Flu Trans - Collided with: " + col.transform.name);    
+            if (this.player.State == PlayerState.Infected ||
+                this.player.State == PlayerState.MadChicken)
+            {
+                Debug.Log("Flu Trans - Transmited to: " + col.transform.name);    
+                Player other = col.transform.GetComponent<Player>();
+                GameManager.Instance.Infect(other.Number);
+            }
+        }
 	}
 
-	public void Infected() {
-
-
+	public void Infected() 
+    {
 
 	}
 
