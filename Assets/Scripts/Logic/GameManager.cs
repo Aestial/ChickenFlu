@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private int remain;
 
-    //private RouletteController roulette;
+    private RouletteController roulette;
     private Notifier notifier;
 
 	void Start () 
@@ -30,21 +31,24 @@ public class GameManager : Singleton<GameManager>
 			this.players [i].name = "Player" + (i+1).ToString();
             this.players[i].Number = i;
         }
-        //this.roulette = GetComponent<RouletteController>();
+        this.roulette = GetComponent<RouletteController>();
 
         // Notifier
         notifier = new Notifier();
         notifier.Subscribe(Player.ON_DIE, HandleOnDie);
+        notifier.Subscribe(RouletteController.ON_SELECTED_INFECTED, HandleOnSelectedInfected);
 
         StartCoroutine(this.Roulette());
 	}
+
+    
 
     private IEnumerator Roulette()
     {
         yield return new WaitForSeconds(1.0f);
         StateManager.Instance.State = GameState.Roulette;
-        //this.roulette.Initialize();
-        this.infected = Random.Range(0, this.numPlayers);
+        this.roulette.Initialize(numPlayers);
+        //this.infected = Random.Range(0, this.numPlayers);
         //Debug.Log(this.infected);
         this.players[this.infected].Mutate(PlayerState.Infected);
         StateManager.Instance.State = GameState.Battle;
@@ -95,6 +99,12 @@ public class GameManager : Singleton<GameManager>
     private void HandleOnDie(params object[] args)
     {
         UpdateRemain();
+    }
+
+    private void HandleOnSelectedInfected(object[] args)
+    {
+        this.infected = (int)args[0];
+        Debug.Log("manager infected" + infected);
     }
 
     private void UpdateRemain()

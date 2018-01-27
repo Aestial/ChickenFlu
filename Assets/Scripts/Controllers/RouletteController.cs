@@ -38,9 +38,9 @@ public class RouletteController : Singleton<RouletteController> {
         //}
     }
 
-    public void Initialize(int numPlayers) 
+    public void Initialize(int playersCount) 
     {
-
+        numPlayers = playersCount;
         if (numPlayers != 0)
         {
             TimerControl(240f, 2, 0f);
