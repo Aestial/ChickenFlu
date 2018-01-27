@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private int remain;
 
+    private RouletteController roullete;
     private Notifier notifier;
 
 	void Start () 
@@ -29,21 +30,25 @@ public class GameManager : Singleton<GameManager>
 			this.players [i].name = "Player" + (i+1).ToString();
             this.players[i].Number = i;
         }
+        this.roullete = GetComponent<RouletteController>();
+
         // Notifier
         notifier = new Notifier();
         notifier.Subscribe(Player.ON_DIE, HandleOnDie);
 
+        //this.roullete.enabled = true;
         StartCoroutine(this.Roulette());
         StateManager.Instance.State = GameState.Roulette;
 	}
 
     private IEnumerator Roulette()
     {
-        yield return new WaitForSeconds(1.8f);
-        this.infected = Random.Range(0, this.numPlayers);
-        //Debug.Log(this.infected);
-        this.players[this.infected].Mutate(PlayerState.Infected);
-        StateManager.Instance.State = GameState.Battle;
+        yield return new WaitForSeconds(1.0f);
+        this.roullete.Initialize();
+        //this.infected = Random.Range(0, this.numPlayers);
+        ////Debug.Log(this.infected);
+        //this.players[this.infected].Mutate(PlayerState.Infected);
+        //StateManager.Instance.State = GameState.Battle;
     }
     	
 	void Update () 

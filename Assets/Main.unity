@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 422988852}
   - component: {fileID: 422988851}
   - component: {fileID: 422988854}
+  - component: {fileID: 422988855}
   - component: {fileID: 422988853}
   - component: {fileID: 422988850}
   m_Layer: 0
@@ -200,6 +201,19 @@ MonoBehaviour:
   - {x: 1, y: -1, z: 0}
   players: []
   infected: 0
+  remain: 0
+--- !u!114 &422988855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 422988849}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8808076750a4ddaa5c4861433691e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imagePlayer: {fileID: 0}
 --- !u!1 &937315372
 GameObject:
   m_ObjectHideFlags: 0
