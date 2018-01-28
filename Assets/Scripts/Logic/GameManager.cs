@@ -38,44 +38,9 @@ public class GameManager : Singleton<GameManager>
         notifier.Subscribe(Player.ON_DIE, HandleOnDie);
         notifier.Subscribe(RouletteController.ON_SELECTED_INFECTED, HandleOnSelectedInfected);
 
-        StartCoroutine(this.Roulette());
+        StartCoroutine(this.SpinRoulette());
 	}
-
-    
-
-    private IEnumerator Roulette()
-    {
-        yield return new WaitForSeconds(1.0f);
-        StateManager.Instance.State = GameState.Roulette;
-        this.roulette.Initialize(numPlayers);
-        //this.infected = Random.Range(0, this.numPlayers);
-        //Debug.Log(this.infected);
-        //this.players[this.infected].Mutate(PlayerState.Infected);
-    }
-    	
-	void Update () 
-    {
-        if (StateManager.Instance.State == GameState.Battle)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                this.Infect(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                this.Infect(1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                this.Infect(2);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                this.Infect(3);
-            }
-        }
-	}
- 
+     
     public void Infect(int player)
     {
         if (this.infected != player &&
@@ -103,7 +68,7 @@ public class GameManager : Singleton<GameManager>
     private void HandleOnSelectedInfected(object[] args)
     {
         this.infected = (int)args[0];
-        Debug.Log("Manager - Infected: " + infected);
+        //Debug.Log("Manager - Infected: " + infected);
         this.players[this.infected].Mutate(PlayerState.Infected);
         StateManager.Instance.State = GameState.Battle;
     }
@@ -117,6 +82,14 @@ public class GameManager : Singleton<GameManager>
             this.players[this.infected].Mutate(PlayerState.Chicken);
         }
     }
+
+    private IEnumerator SpinRoulette()
+    {
+        yield return new WaitForSeconds(1.0f);
+        StateManager.Instance.State = GameState.Roulette;
+        this.roulette.Initialize(numPlayers);
+    }
+
     void OnDestroy()
     {
         notifier.UnsubcribeAll();

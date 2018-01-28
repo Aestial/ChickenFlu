@@ -15,16 +15,24 @@ public enum PlayerState
 }
 
 [System.Serializable]
-public struct GraphicState 
+public struct GraphicState
 {
     public PlayerState state;
-	public Material material;
-}
+    public Material material;
+};
+
+[System.Serializable]
+public struct SpeedState
+{
+    public PlayerState state;
+    public float speed;
+};
 
 public class Player : MonoBehaviour 
 {
     [SerializeField] private float infectedAmount;
-    [SerializeField] private GraphicState[] GStates;
+    [SerializeField] private SpeedState[] speedStates;
+    [SerializeField] private GraphicState[] graphicStates;
 
     [Header("Debug")]
     [SerializeField]
@@ -33,6 +41,8 @@ public class Player : MonoBehaviour
     private float health;
     [SerializeField]
     private PlayerState state;
+    [SerializeField]
+    private float speed;
     [SerializeField]
     private bool canBeInfected;
 
@@ -46,13 +56,16 @@ public class Player : MonoBehaviour
         get { return number; }
         set { number = value; }
     }
-
     public PlayerState State
     {
         get { return state; }
         set { state = value; }
     }
-
+    public float Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
     public bool CanBeInfected
     {
         get { return canBeInfected; }
@@ -63,6 +76,7 @@ public class Player : MonoBehaviour
     {
         this.health = 1.0f;
         this.state = PlayerState.Human;
+        this.speed = speedStates[(int)this.state].speed;
         this.canBeInfected = true;
         // Temporary
 		this.meshRenderer = GetComponent<MeshRenderer>();
@@ -91,8 +105,9 @@ public class Player : MonoBehaviour
     public void Mutate(PlayerState newState)
     {
         this.state = newState;
-		this.meshRenderer.material = GStates[(int)this.state].material;
-        Debug.Log("Player " + this.number + "'s new state: " + this.state);
+        this.meshRenderer.material = graphicStates[(int)this.state].material;
+        this.speed = speedStates[(int)this.state].speed;
+        //Debug.Log("Player " + this.number + "'s new state: " + this.state);
     }
 
     void Update () 

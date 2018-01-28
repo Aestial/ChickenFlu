@@ -46,11 +46,11 @@ public class RouletteController : Singleton<RouletteController> {
             //TimerControl(428.56f, 2, 6772.64f);
             //TimerControl(461.52f, 2, 7629.76f);
             //TimerControl(500f, 2, 8552.8f);
-            Invoke("Selected", 2f);
+            Invoke("Selected", 3f);
         }
         else
         {
-            Debug.Log("Players don´t exist");
+            Debug.LogError("Players don´t exist");
         }
     }
 	

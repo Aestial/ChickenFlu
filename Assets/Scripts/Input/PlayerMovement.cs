@@ -12,46 +12,52 @@ public enum InputType
 
 public class PlayerMovement : MonoBehaviour {
 
-	private Rigidbody selfRigidbody;
 	public Vector3 currentJoystickInput;
-	public float speed;
+    [SerializeField] private float speedMultiplier = 4f;
+
+    private Player player;
+    private Rigidbody rb;
+    private float speed;
 
 	// Use this for initialization
-	void Start () {
-
-		selfRigidbody = GetComponent<Rigidbody> ();
-
+	void Start () 
+    {
+        this.player = GetComponent<Player>();
+		this.rb = GetComponent<Rigidbody> ();
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate () 
+    {
+        this.speed = this.speedMultiplier * this.player.Speed;
         if (StateManager.Instance.State == GameState.Battle)
         {
-            if (name == "Player0")
+            if (this.name == "Player0")
             {
-                KeyboardMovement(InputType.WASD);
+                this.KeyboardMovement(InputType.WASD);
             }
 
-            if (name == "Player1")
+            if (this.name == "Player1")
             {
-                KeyboardMovement(InputType.Arrows);
+                this.KeyboardMovement(InputType.Arrows);
             }
 
-            if (name == "Player2")
+            if (this.name == "Player2")
             {
-                TouchMovement();
+                this.TouchMovement();
             }   
         }		
 	}
 
 	void TouchMovement () 
     {
-		if (Input.touchCount > 0) {
+		if (Input.touchCount > 0) 
+        {
 			Vector3 movement = new Vector3 (CnInputManager.GetAxis("Horizontal"), 0f, CnInputManager.GetAxis("Vertical"));
-			selfRigidbody.velocity = (movement * speed);
+            this.rb.velocity = (movement * this.speed);
             if (movement != Vector3.zero)
             {
-                transform.rotation = Quaternion.LookRotation(movement);    
+                this.transform.rotation = Quaternion.LookRotation(movement);    
             }
 		}
 	}
@@ -64,22 +70,20 @@ public class PlayerMovement : MonoBehaviour {
                 if (Input.GetAxis("KHorizontal") != 0 || Input.GetAxis("KVertical") != 0)
                 {
                     Vector3 movement = new Vector3(Input.GetAxis("KHorizontal"), 0f, Input.GetAxis("KVertical"));
-                    selfRigidbody.velocity = (movement * speed);
-                    transform.rotation = Quaternion.LookRotation(movement);
+                    this.rb.velocity = (movement * this.speed);
+                    this.transform.rotation = Quaternion.LookRotation(movement);
                 }
                 break;
             case InputType.WASD:
                 if (Input.GetAxis("LKHorizontal") != 0 || Input.GetAxis("LKVertical") != 0)
                 {
                     Vector3 movement = new Vector3(Input.GetAxis("LKHorizontal"), 0f, Input.GetAxis("LKVertical"));
-                    selfRigidbody.velocity = (movement * speed);
-                    transform.rotation = Quaternion.LookRotation(movement);
+                    this.rb.velocity = (movement * this.speed);
+                    this.transform.rotation = Quaternion.LookRotation(movement);
                 }
                 break;
             default:
                 break;
-
         }
 	}
-
 }

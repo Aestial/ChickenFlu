@@ -6,7 +6,7 @@ public class ManagerDebugger : MonoBehaviour
 {
     private Notifier notifier;
 	// Use this for initialization
-	void Start () 
+	void Awake () 
     {
         notifier = new Notifier();
         notifier.Subscribe(StateManager.ON_STATE_ENTER, HandleOnEnter);

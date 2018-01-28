@@ -199,7 +199,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infectedAmount: 0.005
-  GStates:
+  speedStates:
+  - state: 0
+    speed: 1
+  - state: 1
+    speed: 1.2
+  - state: 2
+    speed: 2
+  - state: 3
+    speed: 0.85
+  graphicStates:
   - state: 0
     material: {fileID: 2100000, guid: 975fb4b962c31424c9270050982a1017, type: 2}
   - state: 1
