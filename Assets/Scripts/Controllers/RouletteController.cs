@@ -32,9 +32,10 @@ public class RouletteController : Singleton<RouletteController> {
         numPlayers = playersCount;
         if (numPlayers != 0)
         {
-            TimerControl(240f, 2, 0f);
-            TimerControl(250f, 2, 480f);
-            TimerControl(260.86f, 2, 980f);
+            // TimerControl(240f, 2,0f);
+            //TimerControl(250f, 2, 480f);
+            TimerControl(250f, 2, 730f);
+            TimerControl(260.86f, 2, 980f );
             TimerControl(272.72f, 2, 1501.72f);
             TimerControl(285.7f, 2, 2047.16f);
             TimerControl(300f, 2, 2618.56f);
@@ -46,6 +47,7 @@ public class RouletteController : Singleton<RouletteController> {
             TimerControl(428.56f, 2, 6772.64f);
             TimerControl(461.52f, 2, 7629.76f);
             TimerControl(500f, 2, 8552.8f);
+            TimerControl(500f, 2, 9552.8f);
             Invoke("Selected", 10f);
         }
         else
