@@ -49,6 +49,7 @@ public class RouletteController : Singleton<RouletteController> {
             TimerControl(500f, 2, 8552.8f);
             TimerControl(500f, 2, 9552.8f);
             Invoke("Selected", 10f);
+			Debug.Log ("Initialize");
         }
         else
         {
@@ -60,6 +61,7 @@ public class RouletteController : Singleton<RouletteController> {
     void ChangeSelected()
     {
         currentPlayer = Random.Range(0, numPlayers);
+		Debug.Log ("Change selected: currentPlyer=" + currentPlayer);
         if(currentPlayer == lastCurrent)
         {
             ChangeSelected();
@@ -74,6 +76,7 @@ public class RouletteController : Singleton<RouletteController> {
     void Selected()
     {
         currentPlayer = Random.Range(0, numPlayers);
+		Debug.Log ("Selected: currentPlayer=" + currentPlayer);
         if (currentPlayer == lastCurrent)
         {
             Selected();
@@ -101,6 +104,7 @@ public class RouletteController : Singleton<RouletteController> {
     {
         yield return new WaitForSeconds(wait);
         notifier.Notify(ON_FINISH_SELECTED, playerSelected);
+		Debug.Log ("OnSelected");
     }
 
     void OnDestroy()
