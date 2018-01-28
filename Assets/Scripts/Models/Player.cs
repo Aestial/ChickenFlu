@@ -18,8 +18,15 @@ public enum PlayerState
 public struct GraphicState
 {
     public PlayerState state;
-    public Material material;
+    public Color color;
 };
+
+//[System.Serializable]
+//public struct GraphicState
+//{
+//    public PlayerState state;
+//    public Material material;
+//};
 
 [System.Serializable]
 public struct SpeedState
@@ -34,6 +41,8 @@ public class Player : MonoBehaviour
     [SerializeField] private SpeedState[] speedStates;
     [SerializeField] private GraphicState[] graphicStates;
 
+    [SerializeField] private SkinnedMeshRenderer smr;
+
     [Header("Debug")]
     [SerializeField]
     private int number;
@@ -45,6 +54,8 @@ public class Player : MonoBehaviour
     private float speed;
     [SerializeField]
     private bool canBeInfected;
+    [SerializeField] 
+    private Material material;
 
 	private MeshRenderer meshRenderer;
 
@@ -77,9 +88,11 @@ public class Player : MonoBehaviour
         this.health = 1.0f;
         this.state = PlayerState.Human;
         this.speed = speedStates[(int)this.state].speed;
+        this.material = smr.material;
+        this.material.color = graphicStates[(int)this.state].color;
         this.canBeInfected = true;
         // Temporary
-		this.meshRenderer = GetComponent<MeshRenderer>();
+		//this.meshRenderer = GetComponent<MeshRenderer>();
         //
         // Notifier
         notifier = new Notifier();
@@ -105,8 +118,9 @@ public class Player : MonoBehaviour
     public void Mutate(PlayerState newState)
     {
         this.state = newState;
-        this.meshRenderer.material = graphicStates[(int)this.state].material;
         this.speed = speedStates[(int)this.state].speed;
+        this.material.color = graphicStates[(int)this.state].color;
+        //this.meshRenderer.material = graphicStates[(int)this.state].material;
         //Debug.Log("Player " + this.number + "'s new state: " + this.state);
     }
 
