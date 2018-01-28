@@ -7,7 +7,8 @@ public enum InputType
 {
     WASD,
     Arrows,
-    TouchJoystick
+    TouchJoystick,
+    Joystick
 }
 
 public class PlayerMovement : MonoBehaviour {
@@ -45,7 +46,11 @@ public class PlayerMovement : MonoBehaviour {
             if (this.name == "Player2")
             {
                 this.TouchMovement();
-            } 
+            }
+            if(this.name == "Player3")
+            {
+                this.JoyStickMovement(1);
+            }
         }
         animator.SetFloat("Speed", rb.velocity.magnitude);
 	}
@@ -87,4 +92,15 @@ public class PlayerMovement : MonoBehaviour {
                 break;
         }
 	}
+
+    void JoyStickMovement(int player)
+    {
+        Vector3 movement = new Vector3(Input.GetAxis("LeftStickX-Player" + player), 0f, Input.GetAxis("LeftStickY-Player" + player));
+        this.rb.velocity = (movement * this.speed);
+        if (movement != Vector3.zero)
+        {
+            this.transform.rotation = Quaternion.LookRotation(movement);
+        }
+
+    }
 }

@@ -33,3 +33,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Assets/LimitPlatform.cs
+Assets/Scripts/Logic/GameManager.cs
+Assets/Scripts/Input/PlayerMovement.cs
+Assets/Scripts/Input/PlayerMovement.cs
