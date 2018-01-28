@@ -9,6 +9,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Player playerPrefab;
     [SerializeField] private Vector3[] positions;
 
+    [SerializeField] private Transform spawnPositions;
+
     [Header("Debug")]
     [SerializeField] 
     private Player[] players;
@@ -27,9 +29,11 @@ public class GameManager : Singleton<GameManager>
         this.players = new Player[this.numPlayers];
         for (int i = 0; i < this.numPlayers; i++) 
         {
-            this.players[i] = Instantiate<Player>(this.playerPrefab, this.positions[i], Quaternion.identity);
-			this.players [i].name = "Player" + (i).ToString();
+            Vector3 position = spawnPositions.GetChild(i).position;
+            this.players[i] = Instantiate<Player>(this.playerPrefab, position, Quaternion.identity);
+			this.players[i].name = "Player" + (i).ToString();
             this.players[i].Number = i;
+            this.players[i].transform.LookAt(Vector3.zero);
         }
         this.roulette = GetComponent<RouletteController>();
 
