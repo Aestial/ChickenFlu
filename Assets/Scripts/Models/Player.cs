@@ -14,11 +14,18 @@ public enum PlayerState
     Chicken
 }
 
+//[System.Serializable]
+//public struct GraphicState
+//{
+//    public PlayerState state;
+//    public Color color;
+//};
+
 [System.Serializable]
 public struct GraphicState
 {
     public PlayerState state;
-    public Color color;
+    public Transform mesh;
 };
 
 [System.Serializable]
@@ -34,7 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SpeedState[] speedStates;
     [SerializeField] private GraphicState[] graphicStates;
 
-    [SerializeField] private SkinnedMeshRenderer smr;
+    //[SerializeField] private SkinnedMeshRenderer smr;
 
     [Header("Debug")]
     [SerializeField]
@@ -48,7 +55,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool canBeInfected;
     [SerializeField] 
-    private Material material;
+    private Transform mesh;
     [SerializeField]
     private PlayerUIController ui;
 
@@ -86,8 +93,10 @@ public class Player : MonoBehaviour
         this.health = 1.0f;
         this.state = PlayerState.Human;
         this.speed = speedStates[(int)this.state].speed;
-        this.material = smr.material;
-        this.material.color = graphicStates[(int)this.state].color;
+        this.mesh = graphicStates[(int)this.state].mesh;
+        this.mesh.gameObject.SetActive(true);
+        //this.material = smr.material;
+        //this.material.color = graphicStates[(int)this.state].color;
         this.canBeInfected = true;
         // Notifier
         notifier = new Notifier();
@@ -113,9 +122,12 @@ public class Player : MonoBehaviour
 
     public void Mutate(PlayerState newState)
     {
+        this.mesh.gameObject.SetActive(false);
         this.state = newState;
         this.speed = speedStates[(int)this.state].speed;
-        this.material.color = graphicStates[(int)this.state].color;
+        this.mesh = graphicStates[(int)this.state].mesh;
+        this.mesh.gameObject.SetActive(true);
+        //this.material.color = graphicStates[(int)this.state].color;
         //Debug.Log("Player " + this.number + "'s new state: " + this.state);
     }
 
