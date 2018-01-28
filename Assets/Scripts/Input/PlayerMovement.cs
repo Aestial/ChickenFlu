@@ -14,7 +14,8 @@ public enum InputType
 public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] private float speedMultiplier = 4f;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animatorOne;
+    [SerializeField] private Animator animatorTwo;
 
     private Player player;
     private Rigidbody rb;
@@ -52,7 +53,8 @@ public class PlayerMovement : MonoBehaviour {
                 this.JoyStickMovement(1);
             }
         }
-        animator.SetFloat("Speed", rb.velocity.magnitude);
+        animatorOne.SetFloat("Speed", rb.velocity.magnitude);
+        animatorTwo.SetFloat("Speed", rb.velocity.magnitude);
 	}
 
 	void TouchMovement () 
