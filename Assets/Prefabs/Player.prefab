@@ -126,10 +126,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4785738996969576}
   - component: {fileID: 114207968607053306}
-  - component: {fileID: 136602730132384700}
   - component: {fileID: 114579082034454012}
-  - component: {fileID: 54627748400086434}
+  - component: {fileID: 136602730132384700}
   - component: {fileID: 114785891514488624}
+  - component: {fileID: 54627748400086434}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1235,6 +1235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infectSafeTime: 1
+  audioFX: {fileID: 8300000, guid: 869a0edb11d1a46128324b8cf5d2b6a3, type: 3}
 --- !u!114 &114785891514488624
 MonoBehaviour:
   m_ObjectHideFlags: 1
