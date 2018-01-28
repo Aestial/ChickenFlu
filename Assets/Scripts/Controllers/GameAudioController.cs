@@ -14,32 +14,32 @@ public class GameAudioController : Singleton<GameAudioController>
     [SerializeField] private AudioState[] audioStates;
 
     private Notifier notifier;
-    // Use this for initialization
+
     void Awake()
     {
         notifier = new Notifier();
         notifier.Subscribe(StateManager.ON_STATE_ENTER, HandleOnEnter);
         notifier.Subscribe(StateManager.ON_STATE_EXIT, HandleOnExit);
+        this.PlayStateAudio(StateManager.Instance.State);
     }
     void HandleOnEnter(params object[] args)
     {
         GameState state = (GameState)args[0];
-        PlayStateAudioLoop(state);
+        this.PlayStateAudio(state);
         Debug.Log("AUDIO - Playing loop of state: " + state);
     }
     void HandleOnExit(params object[] args)
     {
         GameState state = (GameState)args[0];
         AudioManager.Instance.StopLoop(state.ToString());
-        Debug.Log("DEBUG - Exit from state: " + state);
     }
-    private void PlayStateAudioLoop(GameState state)
+    private void PlayStateAudio(GameState state)
     {
-        foreach (AudioState aState in audioStates)
+        for (int i = 0; i < audioStates.Length; i++)
         {
-            if (aState.state == state)
+            if (audioStates[i].state == state)
             {
-                AudioManager.Instance.PlayLoop2D(state.ToString(), aState.clip);
+                AudioManager.Instance.PlayLoop2D(state.ToString(), audioStates[i].clip);
             }
         }
     }

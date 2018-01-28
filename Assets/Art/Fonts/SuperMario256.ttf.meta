@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b484588b2ec974422a8f0c17083994dd
-timeCreated: 1517109281
+guid: 0e420cc5316594cd8a37f6b11be9b199
+timeCreated: 1517128973
 licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
@@ -10,9 +10,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Japonesa
+  fontName: Super Mario 256
   fontNames:
-  - Japonesa
+  - Super Mario 256
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

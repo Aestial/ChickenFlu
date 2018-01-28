@@ -7,9 +7,8 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int numPlayers;
     [SerializeField] private Player playerPrefab;
-    [SerializeField] private Vector3[] positions;
-
     [SerializeField] private Transform spawnPositions;
+    [SerializeField] private Transform healthPanel;
 
     [Header("Debug")]
     [SerializeField] 
@@ -33,6 +32,7 @@ public class GameManager : Singleton<GameManager>
             this.players[i] = Instantiate<Player>(this.playerPrefab, position, Quaternion.identity);
 			this.players[i].name = "Player" + (i).ToString();
             this.players[i].Number = i;
+            this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
             this.players[i].transform.LookAt(Vector3.zero);
         }
         this.roulette = GetComponent<RouletteController>();
@@ -40,7 +40,7 @@ public class GameManager : Singleton<GameManager>
         // Notifier
         notifier = new Notifier();
         notifier.Subscribe(Player.ON_DIE, HandleOnDie);
-        notifier.Subscribe(RouletteController.ON_SELECTED_INFECTED, HandleOnSelectedInfected);
+        notifier.Subscribe(RouletteController.ON_FINISH_SELECTED, HandleOnSelectedInfected);
 
         StartCoroutine(this.SpinRoulette());
 	}
@@ -89,9 +89,9 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator SpinRoulette()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(4.0f);
         StateManager.Instance.State = GameState.Roulette;
-        this.roulette.Initialize(numPlayers);
+        this.roulette.Initialize(this.numPlayers);
     }
 
     void OnDestroy()

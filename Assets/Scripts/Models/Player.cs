@@ -21,13 +21,6 @@ public struct GraphicState
     public Color color;
 };
 
-//[System.Serializable]
-//public struct GraphicState
-//{
-//    public PlayerState state;
-//    public Material material;
-//};
-
 [System.Serializable]
 public struct SpeedState
 {
@@ -56,8 +49,8 @@ public class Player : MonoBehaviour
     private bool canBeInfected;
     [SerializeField] 
     private Material material;
-
-	private MeshRenderer meshRenderer;
+    [SerializeField]
+    private PlayerUIController ui;
 
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
@@ -82,6 +75,11 @@ public class Player : MonoBehaviour
         get { return canBeInfected; }
         set { canBeInfected = value; }
     }
+    public PlayerUIController UI
+    {
+        get { return ui; }
+        set { ui = value; }
+    }
 
 	void Start () 
     {
@@ -91,9 +89,6 @@ public class Player : MonoBehaviour
         this.material = smr.material;
         this.material.color = graphicStates[(int)this.state].color;
         this.canBeInfected = true;
-        // Temporary
-		//this.meshRenderer = GetComponent<MeshRenderer>();
-        //
         // Notifier
         notifier = new Notifier();
 
@@ -113,6 +108,7 @@ public class Player : MonoBehaviour
     {
         this.health += amount;
         this.CheckHealth();
+        this.ui.UpdateHealth(this.health);
     }
 
     public void Mutate(PlayerState newState)
@@ -120,7 +116,6 @@ public class Player : MonoBehaviour
         this.state = newState;
         this.speed = speedStates[(int)this.state].speed;
         this.material.color = graphicStates[(int)this.state].color;
-        //this.meshRenderer.material = graphicStates[(int)this.state].material;
         //Debug.Log("Player " + this.number + "'s new state: " + this.state);
     }
 
