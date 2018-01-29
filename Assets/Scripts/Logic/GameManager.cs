@@ -2,13 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager> 
 {
     [SerializeField] private int numPlayers;
     [SerializeField] private Player playerPrefab;
     [SerializeField] private Transform spawnPositions;
+    // TODO: Temporary 
+    [SerializeField] private float winnerTime;
+    //
     [SerializeField] private Transform healthPanel;
+    [SerializeField] private Texture[] playerTextures;
 
     [Header("Debug")]
     [SerializeField] 
@@ -17,14 +22,14 @@ public class GameManager : Singleton<GameManager>
     private int infected;
     [SerializeField]
     private int remain;
-
+    [SerializeField]
+    private bool started;
     private RouletteController roulette;
     private Notifier notifier;
 
 	void Start () 
     {
         this.remain = this.numPlayers;
-
         this.players = new Player[this.numPlayers];
         for (int i = 0; i < this.numPlayers; i++) 
         {
@@ -32,9 +37,11 @@ public class GameManager : Singleton<GameManager>
             this.players[i] = Instantiate<Player>(this.playerPrefab, position, Quaternion.identity);
 			this.players[i].name = "Player" + (i).ToString();
             this.players[i].Number = i;
+            this.players[i].Texture = playerTextures[i];
             this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
             this.players[i].transform.LookAt(Vector3.zero);
         }
+        this.started = false;
         this.roulette = GetComponent<RouletteController>();
 
         // Notifier
@@ -42,9 +49,23 @@ public class GameManager : Singleton<GameManager>
         notifier.Subscribe(Player.ON_DIE, HandleOnDie);
         notifier.Subscribe(RouletteController.ON_FINISH_SELECTED, HandleOnSelectedInfected);
 
-        StartCoroutine(this.SpinRoulette());
 	}
-     
+    private void Update()
+    {
+        if( StateManager.Instance.State == GameState.Start &&
+            Input.GetKeyUp(KeyCode.Return) && !started)
+        {
+            started = true;
+            StartCoroutine(this.SpinRoulette());
+        }
+        if ( StateManager.Instance.State == GameState.End &&
+            Input.GetKeyUp(KeyCode.Return))
+        {
+            // TODO: Change This!
+            SceneManager.LoadScene("Main");
+        }
+    }
+
     public void Infect(int player)
     {
         if (this.infected != player &&
@@ -82,16 +103,24 @@ public class GameManager : Singleton<GameManager>
         remain--;
         if (remain <= 1)
         {
-            StateManager.Instance.State = GameState.End;
+            StateManager.Instance.State = GameState.Winner;
+            StartCoroutine(this.WinnerWait(this.winnerTime));
+            // TODO: Not working
             this.players[this.infected].Mutate(PlayerState.Chicken);
         }
     }
 
     private IEnumerator SpinRoulette()
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(0.5f);
         StateManager.Instance.State = GameState.Roulette;
         this.roulette.Initialize(this.numPlayers);
+    }
+
+    private IEnumerator WinnerWait(float time)
+    {
+        yield return new WaitForSeconds(time);
+        StateManager.Instance.State = GameState.End;
     }
 
     void OnDestroy()

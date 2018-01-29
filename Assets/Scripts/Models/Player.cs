@@ -14,13 +14,6 @@ public enum PlayerState
     Chicken
 }
 
-//[System.Serializable]
-//public struct GraphicState
-//{
-//    public PlayerState state;
-//    public Color color;
-//};
-
 [System.Serializable]
 public struct GraphicState
 {
@@ -37,11 +30,11 @@ public struct SpeedState
 
 public class Player : MonoBehaviour 
 {
-    [SerializeField] private float infectedAmount;
+    [SerializeField] private float infectedDamage;
     [SerializeField] private SpeedState[] speedStates;
     [SerializeField] private GraphicState[] graphicStates;
 
-    //[SerializeField] private SkinnedMeshRenderer smr;
+    [SerializeField] private Transform coatMesh;
 
     [Header("Debug")]
     [SerializeField]
@@ -57,10 +50,18 @@ public class Player : MonoBehaviour
     [SerializeField] 
     private Transform mesh;
     [SerializeField]
+    private Texture texture;
+    [SerializeField]
     private PlayerUIController ui;
 
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
+
+    public Texture Texture
+    {
+        get { return texture; }
+        set { SetDoctorTexture(value); }
+    }
 
     public int Number
     {
@@ -95,14 +96,16 @@ public class Player : MonoBehaviour
         this.speed = speedStates[(int)this.state].speed;
         this.mesh = graphicStates[(int)this.state].mesh;
         this.mesh.gameObject.SetActive(true);
-        //this.material = smr.material;
-        //this.material.color = graphicStates[(int)this.state].color;
         this.canBeInfected = true;
         // Notifier
         notifier = new Notifier();
 
 	}
-
+    private void SetDoctorTexture(Texture tex) 
+    {
+        this.texture = tex;
+        this.coatMesh.GetComponent<SkinnedMeshRenderer>().material.mainTexture = this.texture;
+    }
     private void CheckHealth()
     {
         if (this.health <= 0.0f) 
@@ -126,16 +129,14 @@ public class Player : MonoBehaviour
         this.state = newState;
         this.speed = speedStates[(int)this.state].speed;
         this.mesh = graphicStates[(int)this.state].mesh;
-        this.mesh.gameObject.SetActive(true);
-        //this.material.color = graphicStates[(int)this.state].color;
-        //Debug.Log("Player " + this.number + "'s new state: " + this.state);
+        this.mesh.gameObject.SetActive(true);   
     }
 
     void Update () 
     {
         if (this.state == PlayerState.Infected) 
         {
-            this.UpdateHealth(-infectedAmount);
+            this.UpdateHealth(-infectedDamage);
         }
 	}
     void OnDestroy()

@@ -46,7 +46,9 @@ public class PlayerMovement : MonoBehaviour {
 
             if (this.name == "Player2")
             {
-                this.TouchMovement();
+                //sthis.TouchMovement();
+                this.JoyStickMovement2(2);
+
             }
             if(this.name == "Player3")
             {
@@ -97,7 +99,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void JoyStickMovement(int player)
     {
-        Vector3 movement = new Vector3(Input.GetAxis("LeftStickX-Player" + player), 0f, Input.GetAxis("LeftStickY-Player" + player));
+        Vector3 movement = new Vector3(Input.GetAxis("LeftStickX-Player" + player), 0f, -Input.GetAxis("LeftStickY-Player" + player));
         this.rb.velocity = (movement * this.speed);
         if (movement != Vector3.zero)
         {
@@ -105,4 +107,15 @@ public class PlayerMovement : MonoBehaviour {
         }
 
     }
-}
+
+
+    void JoyStickMovement2(int player)
+    {
+        Vector3 movement = new Vector3(Input.GetAxis("LeftStickX-Player" + player), 0f, -Input.GetAxis("LeftStickY-Player" + player));
+        this.rb.velocity = (movement * this.speed);
+        if (movement != Vector3.zero)
+        {
+            this.transform.rotation = Quaternion.LookRotation(movement);
+        }
+
+    }}

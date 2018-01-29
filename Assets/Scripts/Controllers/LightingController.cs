@@ -42,6 +42,7 @@ public class LightingController : MonoBehaviour
                 break;
             case GameState.Battle:
                 this.SwitchLights(directionals, true);
+                this.SwitchLights(spots, false);
                 break;
             default:
                 this.SwitchLights(spots, false);

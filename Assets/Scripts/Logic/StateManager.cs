@@ -3,10 +3,12 @@ public enum GameState
 {
     /** Game start */
     Start,
-    /** Randolm select */
+    /** Random select */
     Roulette,
-    /** Battle Loop */
+    /** Battle loop */
     Battle,
+    /** Winner focus */
+    Winner,
     /** Game end */
     End
 }

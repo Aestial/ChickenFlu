@@ -4306,7 +4306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf49d2d10ca4a7f8678dfae32afd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectedAmount: 0.005
+  infectedDamage: 0.002
   speedStates:
   - state: 0
     speed: 1
@@ -4325,12 +4325,14 @@ MonoBehaviour:
     mesh: {fileID: 4133888326807530}
   - state: 3
     mesh: {fileID: 4350659757268560}
+  coatMesh: {fileID: 4174676242385638}
   number: 0
   health: 0
   state: 0
   speed: 0
   canBeInfected: 0
   mesh: {fileID: 0}
+  texture: {fileID: 0}
   ui: {fileID: 0}
 --- !u!114 &114579082034454012
 MonoBehaviour:

@@ -7,29 +7,29 @@ public class AudioManager : Singleton<AudioManager>
 	private Dictionary<string, AudioSource> loops = new Dictionary<string, AudioSource>();
     private Dictionary<string, AudioSource> sounds = new Dictionary<string, AudioSource>();
 
-    public bool iAmFirst;
+    //public bool iAmFirst;
 
-    void Awake()
-    {
-        DontDestroyOnLoad(Instance);
+    //void Awake()
+    //{
+    //    DontDestroyOnLoad(Instance);
 
-        AudioManager[] audioManagers = FindObjectsOfType(typeof(AudioManager)) as AudioManager[];
+    //    AudioManager[] audioManagers = FindObjectsOfType(typeof(AudioManager)) as AudioManager[];
 
-        if(audioManagers.Length > 1)
-        {
-            for(int i = 0; i < audioManagers.Length; i++)
-            {
-                if(!audioManagers[i].iAmFirst)
-                {
-                    DestroyImmediate(audioManagers[i].gameObject);
-                }
-            }
-        }
-        else
-        {
-            iAmFirst = true;
-        }
-    }
+    //    if(audioManagers.Length > 1)
+    //    {
+    //        for(int i = 0; i < audioManagers.Length; i++)
+    //        {
+    //            if(!audioManagers[i].iAmFirst)
+    //            {
+    //                DestroyImmediate(audioManagers[i].gameObject);
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        iAmFirst = true;
+    //    }
+    //}
 
 	#region One Shoot
 
