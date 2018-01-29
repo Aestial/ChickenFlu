@@ -4306,7 +4306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf49d2d10ca4a7f8678dfae32afd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectedDamage: 0.002
+  infectedDamage: 0.0035
   speedStates:
   - state: 0
     speed: 1
