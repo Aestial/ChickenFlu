@@ -10,12 +10,17 @@ public enum InputType
     TouchJoystick,
     Joystick
 }
+[System.Serializable]
+public struct AnimatorState 
+{
+    public PlayerState state;
+    public Animator animator;
+}
 
 public class PlayerMovement : MonoBehaviour {
 
     [SerializeField] private float speedMultiplier = 4f;
-    [SerializeField] private Animator animatorOne;
-    [SerializeField] private Animator animatorTwo;
+    [SerializeField] private AnimatorState[] animatorStates;
 
     private Player player;
     private Rigidbody rb;
@@ -55,8 +60,7 @@ public class PlayerMovement : MonoBehaviour {
                 this.JoyStickMovement(1);
             }
         }
-        animatorOne.SetFloat("Speed", rb.velocity.magnitude);
-        animatorTwo.SetFloat("Speed", rb.velocity.magnitude);
+        this.UpdateAnimatorsParam("Speed", this.rb.velocity.magnitude);
 	}
 
 	void TouchMovement () 
@@ -118,4 +122,13 @@ public class PlayerMovement : MonoBehaviour {
             this.transform.rotation = Quaternion.LookRotation(movement);
         }
 
-    }}
+    }
+
+    void UpdateAnimatorsParam(string floatName, float value)
+    {
+        for (int i = 0; i < this.animatorStates.Length; i++)
+        {
+            this.animatorStates[i].animator.SetFloat(floatName, value);
+        }
+    }
+}

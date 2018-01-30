@@ -39,7 +39,8 @@ public class GameManager : Singleton<GameManager>
             this.players[i].Number = i;
             this.players[i].Texture = playerTextures[i];
             this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
-            this.players[i].transform.LookAt(Vector3.zero);
+            Vector3 lookTarget = new Vector3(0, this.players[i].transform.position.y, 0);
+            this.players[i].transform.LookAt(lookTarget);
         }
         this.started = false;
         this.roulette = GetComponent<RouletteController>();
