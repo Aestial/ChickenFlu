@@ -7,6 +7,8 @@ public enum GameState
     Roulette,
     /** Battle loop */
     Battle,
+    /** Two Remaining */
+    StressBattle,
     /** Winner focus */
     Winner,
     /** Game end */

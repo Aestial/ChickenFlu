@@ -15,17 +15,5 @@ public class StateChanger : MonoBehaviour
             StateManager.Instance.State--;
 
         }
-        //if (Input.GetKeyUp(KeyCode.Alpha1))
-        //{
-        //    StateManager.Instance.State = GameState.Start;
-        //}
-        //else if (Input.GetKeyUp(KeyCode.Alpha2))
-        //{ 
-        //    StateManager.Instance.State = GameState.Battle;
-        //}
-        //else if (Input.GetKeyUp(KeyCode.Alpha3))
-        //{
-        //    StateManager.Instance.State = GameState.End;
-        //}
     }
 }

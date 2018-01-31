@@ -8,12 +8,12 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int numPlayers;
     [SerializeField] private Player playerPrefab;
-    [SerializeField] private Transform spawnPositions;
+    [SerializeField] private AudioClip startSound;
     // TODO: Temporary 
     [SerializeField] private float winnerTime;
     //
+    [SerializeField] private Transform spawnPositions;
     [SerializeField] private Transform healthPanel;
-    [SerializeField] private Texture[] playerTextures;
 
     [Header("Debug")]
     [SerializeField] 
@@ -35,12 +35,8 @@ public class GameManager : Singleton<GameManager>
         {
             Vector3 position = spawnPositions.GetChild(i).position;
             this.players[i] = Instantiate<Player>(this.playerPrefab, position, Quaternion.identity);
-			this.players[i].name = "Player" + (i).ToString();
             this.players[i].Number = i;
-            this.players[i].Texture = playerTextures[i];
             this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
-            Vector3 lookTarget = new Vector3(0, this.players[i].transform.position.y, 0);
-            this.players[i].transform.LookAt(lookTarget);
         }
         this.started = false;
         this.roulette = GetComponent<RouletteController>();
@@ -58,6 +54,7 @@ public class GameManager : Singleton<GameManager>
         {
             started = true;
             StartCoroutine(this.SpinRoulette());
+            AudioManager.Instance.PlayOneShoot2D(startSound, 0.5f);
         }
         if ( StateManager.Instance.State == GameState.End &&
             Input.GetKeyUp(KeyCode.Return))
@@ -102,7 +99,11 @@ public class GameManager : Singleton<GameManager>
     private void UpdateRemain()
     {
         remain--;
-        if (remain <= 1)
+        if (remain == 2)
+        {
+            StateManager.Instance.State = GameState.StressBattle;
+        }
+        else if (remain <= 1)
         {
             StateManager.Instance.State = GameState.Winner;
             StartCoroutine(this.WinnerWait(this.winnerTime));
@@ -113,7 +114,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator SpinRoulette()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.75f);
         StateManager.Instance.State = GameState.Roulette;
         this.roulette.Initialize(this.numPlayers);
     }

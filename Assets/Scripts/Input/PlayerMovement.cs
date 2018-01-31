@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using CnControls;
 
 public enum InputType 
@@ -37,7 +35,8 @@ public class PlayerMovement : MonoBehaviour {
 	void FixedUpdate () 
     {
         this.speed = this.speedMultiplier * this.player.Speed;
-        if (StateManager.Instance.State == GameState.Battle)
+        if (StateManager.Instance.State == GameState.Battle ||
+            StateManager.Instance.State == GameState.StressBattle)
         {
             if (this.name == "Player0")
             {

@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public enum PlayerState
 {
@@ -27,14 +26,29 @@ public struct SpeedState
     public PlayerState state;
     public float speed;
 };
+[System.Serializable]
+public struct StateCustoms
+{
+    public PlayerState state;
+    public Transform mesh;
+    public float speed;
+}
+[System.Serializable]
+public struct PlayerCustoms
+{
+    public Texture texture;
+    public Color color;
+}
 
 public class Player : MonoBehaviour 
 {
     [SerializeField] private float infectedDamage;
-    [SerializeField] private SpeedState[] speedStates;
-    [SerializeField] private GraphicState[] graphicStates;
-
-    [SerializeField] private Transform coatMesh;
+    [SerializeField] private StateCustoms[] stateCustoms;
+    [SerializeField] private PlayerCustoms[] playerCustoms;
+    [SerializeField] private AudioClip dieFX;
+    [SerializeField] private SkinnedMeshRenderer coatMesh;
+    [SerializeField] private Text markerText;
+    [SerializeField] private Image markerImage;
 
     [Header("Debug")]
     [SerializeField]
@@ -52,21 +66,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Texture texture;
     [SerializeField]
+    private Color color;
+    [SerializeField]
     private PlayerUIController ui;
 
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
 
-    public Texture Texture
-    {
-        get { return texture; }
-        set { SetDoctorTexture(value); }
-    }
-
     public int Number
     {
         get { return number; }
-        set { number = value; }
+        set { Config(value); }
     }
     public PlayerState State
     {
@@ -93,25 +103,33 @@ public class Player : MonoBehaviour
     {
         this.health = 1.0f;
         this.state = PlayerState.Human;
-        this.speed = speedStates[(int)this.state].speed;
-        this.mesh = graphicStates[(int)this.state].mesh;
+        this.speed = stateCustoms[(int)this.state].speed;
+        this.mesh = stateCustoms[(int)this.state].mesh;
         this.mesh.gameObject.SetActive(true);
         this.canBeInfected = true;
         // Notifier
         notifier = new Notifier();
 
 	}
-    private void SetDoctorTexture(Texture tex) 
+    private void Config(int num)
     {
-        this.texture = tex;
-        this.coatMesh.GetComponent<SkinnedMeshRenderer>().material.mainTexture = this.texture;
+        this.number = num;
+        this.name = "Player" + this.number.ToString();
+        this.texture = playerCustoms[this.number].texture;
+        this.color = playerCustoms[this.number].color;
+        this.transform.LookAt(new Vector3(0, this.transform.position.y, 0));
+        this.coatMesh.material.mainTexture = this.texture;
+        this.markerText.text = (this.number + 1) + "P";
+        this.markerText.color = this.color;
+        this.markerImage.color = this.color;
     }
     private void CheckHealth()
     {
         if (this.health <= 0.0f) 
         {
-            Debug.Log("Player " + number + " is dead!");
+            Debug.Log("Player " + this.number + " is dead!");
             notifier.Notify(ON_DIE);
+            AudioManager.Instance.PlayOneShoot(dieFX, this.transform.position);
             this.Mutate(PlayerState.MadChicken);
         }
     }
@@ -127,8 +145,8 @@ public class Player : MonoBehaviour
     {
         this.mesh.gameObject.SetActive(false);
         this.state = newState;
-        this.speed = speedStates[(int)this.state].speed;
-        this.mesh = graphicStates[(int)this.state].mesh;
+        this.speed = stateCustoms[(int)this.state].speed;
+        this.mesh = stateCustoms[(int)this.state].mesh;
         this.mesh.gameObject.SetActive(true);   
     }
 

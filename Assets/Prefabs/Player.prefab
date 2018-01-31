@@ -1329,7 +1329,7 @@ GameObject:
   - component: {fileID: 114430905392368278}
   - component: {fileID: 114492188866430898}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Marker_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2082,7 +2082,7 @@ GameObject:
   - component: {fileID: 114304654827288844}
   - component: {fileID: 114743411732553320}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Marker_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4625,25 +4625,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infectedDamage: 0.0035
-  speedStates:
-  - state: 0
-    speed: 1
-  - state: 1
-    speed: 1.2
-  - state: 2
-    speed: 2
-  - state: 3
-    speed: 0.85
-  graphicStates:
+  stateCustoms:
   - state: 0
     mesh: {fileID: 4269054813262490}
+    speed: 1
   - state: 1
     mesh: {fileID: 4230314052814566}
+    speed: 1.4
   - state: 2
     mesh: {fileID: 4133888326807530}
+    speed: 2.2
   - state: 3
     mesh: {fileID: 4350659757268560}
-  coatMesh: {fileID: 4174676242385638}
+    speed: 0.8
+  playerCustoms:
+  - texture: {fileID: 2800000, guid: daad954ae25d64419a9b36620e8e38c8, type: 3}
+    color: {r: 0.22352941, g: 0.5149702, b: 0.9985246, a: 1}
+  - texture: {fileID: 2800000, guid: ddf7c5fb427984758bfe004d156bb3e3, type: 3}
+    color: {r: 0.9866009, g: 0.12835744, b: 0.02961363, a: 1}
+  - texture: {fileID: 2800000, guid: 023023803354940069a7ead9e1b23881, type: 3}
+    color: {r: 0.16146493, g: 0.8350202, b: 0.06830116, a: 1}
+  - texture: {fileID: 2800000, guid: b6b796532aad44b8e8ad665a63a1e6de, type: 3}
+    color: {r: 0.9942397, g: 0.7205919, b: 0.21249875, a: 1}
+  dieFX: {fileID: 8300000, guid: 97aef622655e24d05825fd5e74c9a91f, type: 3}
+  coatMesh: {fileID: 137303337712490218}
+  markerText: {fileID: 114430905392368278}
+  markerImage: {fileID: 114304654827288844}
   number: 0
   health: 0
   state: 0
@@ -4651,6 +4658,7 @@ MonoBehaviour:
   canBeInfected: 0
   mesh: {fileID: 0}
   texture: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   ui: {fileID: 0}
 --- !u!114 &114304654827288844
 MonoBehaviour:
@@ -4772,7 +4780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infectSafeTime: 1
-  audioFX: {fileID: 8300000, guid: 869a0edb11d1a46128324b8cf5d2b6a3, type: 3}
+  audioFX: {fileID: 8300000, guid: a7c6703090dc54656ac6b3128433aaaf, type: 3}
 --- !u!114 &114743411732553320
 MonoBehaviour:
   m_ObjectHideFlags: 1
