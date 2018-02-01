@@ -5,9 +5,15 @@ using UnityEngine;
 public class LightingController : MonoBehaviour 
 {
     [SerializeField] private Light[] directionals;
-    [SerializeField] private Light[] spots;
+    [SerializeField] private Light spot;
+    [SerializeField] private Transform spawnPositions;
+    [SerializeField] private Vector3 spotSpawnOffset;
 	
     private Notifier notifier;
+
+    void Start() {
+        
+    }
 
     void Awake()
     {
@@ -31,7 +37,7 @@ public class LightingController : MonoBehaviour
     void HandleOnUpdateRoulette(params object[] args)
     {
         int index = (int)args[0];
-        SetLightAtIndex(spots, index);
+        SetLightAtIndex(spot, index);
     }
     private void SetLighting(GameState state)
     {
@@ -39,27 +45,38 @@ public class LightingController : MonoBehaviour
         {
             case GameState.Roulette:
                 this.SwitchLights(directionals, false);
+                this.SwitchLight(spot, true);
                 break;
             case GameState.Battle:
                 this.SwitchLights(directionals, true);
-                this.SwitchLights(spots, false);
+                this.SwitchLight(spot, false);
                 break;
             default:
-                this.SwitchLights(spots, false);
+                this.SwitchLight(spot, false);
                 break;
         }
+    }
+    private void SwitchLight(Light light, bool on)
+    {
+        light.enabled = on;
     }
     private void SwitchLights(Light[] lights, bool on)
     {
         for (int i = 0; i < lights.Length; i++)
         {
-            lights[i].enabled = on;
+            SwitchLight(lights[i], on);
         }
     }
-    private void SetLightAtIndex(Light[] lights, int index)
+    private void SetLightAtIndex(Light light, int index)
     {
-        SwitchLights(lights, false);
-        lights[index].enabled = true;
+        Vector3 pos = spawnPositions.GetChild(index).position;
+        pos += spotSpawnOffset;
+        SetLightPosition(light, pos);
+    }
+
+    private void SetLightPosition(Light light, Vector3 pos)
+    {
+        light.transform.position = pos;
     }
     void OnDestroy()
     {

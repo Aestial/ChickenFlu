@@ -13,7 +13,6 @@ public class StateChanger : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Minus))
         {
             StateManager.Instance.State--;
-
         }
     }
 }
