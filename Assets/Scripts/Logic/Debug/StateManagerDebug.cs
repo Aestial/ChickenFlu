@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManagerDebugger : MonoBehaviour 
+public class StateManagerDebug : MonoBehaviour 
 {
     private Notifier notifier;
 	// Use this for initialization
@@ -15,12 +15,12 @@ public class ManagerDebugger : MonoBehaviour
     void HandleOnEnter(params object[] args)
     {
         GameState state = (GameState)args[0];
-        Debug.Log("DEBUG - Enter to state: " + state);
+        Debug.Log("STATE - Enter to state: " + state);
     }
     void HandleOnExit(params object[] args)
     {
         GameState state = (GameState)args[0];
-        Debug.Log("DEBUG - Exit from state: " + state);
+        Debug.Log("STATE - Exit from state: " + state);
     }
     void OnDestroy()
     {
