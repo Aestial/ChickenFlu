@@ -16,8 +16,6 @@ public enum GameState
 }
 public class StateManager : Singleton<StateManager>
 {
-    [Header("Debug")]
-    [SerializeField]
     private GameState state;
 
     private Notifier notifier;

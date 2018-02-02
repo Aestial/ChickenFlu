@@ -5,7 +5,6 @@ using UnityEngine;
 public class FluTransmission : MonoBehaviour 
 {
     [SerializeField] private float infectSafeTime = 1.0f;
-
     [SerializeField] private AudioClip audioFX;
 
     private Player player;
@@ -15,7 +14,7 @@ public class FluTransmission : MonoBehaviour
         this.player = GetComponent<Player>();
 	}
 
-	void OnCollisionExit(Collision col) 
+	void OnCollisionEnter(Collision col) 
     {
         if (col.transform.tag == "Player" && 
             (this.player.State == PlayerState.Infected ||

@@ -12,13 +12,8 @@ public class RouletteController : Singleton<RouletteController> {
     [SerializeField] private float finishTime;
 
     private int numPlayers;
-
-    [Header("Debug")]
-    [SerializeField]
     private int currentPlayer;
-    [SerializeField]
     private int playerSelected;
-    [SerializeField]
     private int lastCurrent;
 
     void Start () {

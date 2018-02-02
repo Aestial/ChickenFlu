@@ -50,24 +50,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Text markerText;
     [SerializeField] private Image markerImage;
 
-    [Header("Debug")]
-    [SerializeField]
     private int number;
-    [SerializeField]
     private float health;
-    [SerializeField]
     private PlayerState state;
-    [SerializeField]
     private float speed;
-    [SerializeField]
     private bool canBeInfected;
-    [SerializeField] 
     private Transform mesh;
-    [SerializeField]
     private Texture texture;
-    [SerializeField]
     private Color color;
-    [SerializeField]
     private PlayerUIController ui;
 
     private Notifier notifier;
@@ -99,7 +89,7 @@ public class Player : MonoBehaviour
         set { ui = value; }
     }
 
-	void Start () 
+    void Start()
     {
         this.health = 1.0f;
         this.state = PlayerState.Human;
@@ -107,10 +97,13 @@ public class Player : MonoBehaviour
         this.mesh = stateCustoms[(int)this.state].mesh;
         this.mesh.gameObject.SetActive(true);
         this.canBeInfected = true;
+    }
+    void Awake()
+    {
         // Notifier
         notifier = new Notifier();
+    }
 
-	}
     private void Config(int num)
     {
         this.number = num;

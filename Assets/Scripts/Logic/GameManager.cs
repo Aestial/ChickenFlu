@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager> 
 {
+    [SerializeField] private int totalPlayers;
     [SerializeField] private int numPlayers;
     [SerializeField] private Player playerPrefab;
+    [SerializeField] private Player nPlayerPrefab;
     [SerializeField] private AudioClip startSound;
     // TODO: Temporary 
     [SerializeField] private float winnerTime;
@@ -15,26 +17,23 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Transform spawnPositions;
     [SerializeField] private Transform healthPanel;
 
-    [Header("Debug")]
-    [SerializeField] 
     private Player[] players;
-    [SerializeField]
     private int infected;
-    [SerializeField]
     private int remain;
-    [SerializeField]
     private bool started;
     private RouletteController roulette;
     private Notifier notifier;
 
 	void Start () 
     {
-        this.remain = this.numPlayers;
-        this.players = new Player[this.numPlayers];
-        for (int i = 0; i < this.numPlayers; i++) 
+        this.remain = this.totalPlayers;
+        this.players = new Player[this.totalPlayers];
+        for (int i = 0; i < this.totalPlayers; i++) 
         {
+            Player prefab = (i < numPlayers) ? this.playerPrefab : this.nPlayerPrefab;
             Vector3 position = spawnPositions.GetChild(i).position;
-            this.players[i] = Instantiate<Player>(this.playerPrefab, position, Quaternion.identity);
+            Quaternion rotation = Quaternion.identity;
+            this.players[i] = Instantiate<Player>(prefab, position, rotation);
             this.players[i].Number = i;
             this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
         }
@@ -116,7 +115,7 @@ public class GameManager : Singleton<GameManager>
     {
         yield return new WaitForSeconds(2.75f);
         StateManager.Instance.State = GameState.Roulette;
-        this.roulette.Initialize(this.numPlayers);
+        this.roulette.Initialize(this.totalPlayers);
     }
 
     private IEnumerator WinnerWait(float time)

@@ -6,13 +6,18 @@ using UnityEngine.AI;
 public class NavigationController : MonoBehaviour
 {
     private NavMeshAgent agent;
+    private Player player;
+    private Transform target;
+    private int multiplier = 1; // or more
+
     //public Transform testTransform;
 
     // Use this for initialization
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        //agent.destination = testTransform.position;
+        player = GetComponent<Player>();
+        target = GameObject.Find("Player0").transform;
     }
 
     void Update()
@@ -25,11 +30,26 @@ public class NavigationController : MonoBehaviour
         //        agent.destination = hit.point;
         //    }    
         //}
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1000))
+        if (StateManager.Instance.State == GameState.Battle ||
+            StateManager.Instance.State == GameState.StressBattle)
         {
-            agent.destination = hit.point;
+            if (this.player.State == PlayerState.Infected ||
+                this.player.State == PlayerState.MadChicken)
+            {
+                this.agent.SetDestination(target.position);
+            } 
+            else
+            {
+                if (Time.frameCount%2 == 0)
+                {
+                    Vector3 runTo = transform.position + ((transform.position - target.position) * multiplier);
+                    this.agent.SetDestination(runTo);    
+                }
+                else 
+                {
+                    this.agent.SetDestination(target.position);
+                }
+            }
         }
-
     }
 }
