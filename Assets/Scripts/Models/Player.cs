@@ -12,20 +12,6 @@ public enum PlayerState
     /** Dead */
     Chicken
 }
-
-[System.Serializable]
-public struct GraphicState
-{
-    public PlayerState state;
-    public Transform mesh;
-};
-
-[System.Serializable]
-public struct SpeedState
-{
-    public PlayerState state;
-    public float speed;
-};
 [System.Serializable]
 public struct StateCustoms
 {
