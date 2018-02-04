@@ -26,17 +26,10 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1000))
-        //    {
-        //        agent.destination = hit.point;
-        //    }    
-        //}
         if (StateManager.Instance.State == GameState.Battle ||
             StateManager.Instance.State == GameState.StressBattle)
         {
+            this.agent.enabled = true;
             if (this.player.State == PlayerState.Infected ||
                 this.player.State == PlayerState.MadChicken)
             {
@@ -54,6 +47,10 @@ public class AIController : MonoBehaviour
                     this.agent.SetDestination(target.position);
                 }
             }
+        }
+        else
+        {
+            this.agent.enabled = false;    
         }
     }
     void OnDisable()

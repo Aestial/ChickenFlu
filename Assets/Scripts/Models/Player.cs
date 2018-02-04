@@ -44,10 +44,12 @@ public class Player : MonoBehaviour
     private Transform mesh;
     private Texture texture;
     private Color color;
-    private PlayerUIController ui;
     private bool playable;
 
     private AIController ai;
+    private PlayerMovement pm;
+
+    private PlayerUIController ui;
 
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
@@ -113,6 +115,7 @@ public class Player : MonoBehaviour
     private void ControlConfig(bool playable)
     {
         this.ai = GetComponent<AIController>();
+        this.pm = GetComponent<PlayerMovement>();
         this.ai.enabled = !playable;
     }
     private void CheckHealth()
@@ -141,7 +144,10 @@ public class Player : MonoBehaviour
         this.mesh = stateCustoms[(int)this.state].mesh;
         this.mesh.gameObject.SetActive(true);   
     }
-
+    public void Win()
+    {
+        this.pm.UpdateAnimatorsParam("Winner", true);
+    }
     void Update () 
     {
         if (this.state == PlayerState.Infected) 

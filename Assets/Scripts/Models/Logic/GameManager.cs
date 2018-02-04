@@ -17,11 +17,17 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Transform healthPanel;
 
     private Player[] players;
+    private Player winner;
     private int infected;
     private int remain;
     private bool started;
     private RouletteController roulette;
     private Notifier notifier;
+
+    public Player Winner
+    {
+        get { return winner; }
+    }
 
 	void Start () 
     {
@@ -96,20 +102,32 @@ public class GameManager : Singleton<GameManager>
 
     private void UpdateRemain()
     {
-        remain--;
-        if (remain == 2)
+        this.remain--;
+        if (this.remain == 2)
         {
             StateManager.Instance.State = GameState.StressBattle;
         }
         else if (remain <= 1)
         {
-            StateManager.Instance.State = GameState.Winner;
-            StartCoroutine(this.WinnerWait(this.winnerTime));
+            this.CheckWinner();
+            this.winner.Win();
             // TODO: Not working
             this.players[this.infected].Mutate(PlayerState.Chicken);
+            StateManager.Instance.State = GameState.Winner;
+            StartCoroutine(this.WinnerWait(this.winnerTime));
         }
     }
-
+    private void CheckWinner()
+    {
+        for (int i = 0; i < this.totalPlayers; i++)
+        {
+            if (this.players[i].State == PlayerState.Human)
+            {
+                this.winner = this.players[i];
+                return;
+            }
+        }
+    }
     private IEnumerator SpinRoulette()
     {
         yield return new WaitForSeconds(2.75f);

@@ -130,4 +130,12 @@ public class PlayerMovement : MonoBehaviour {
             this.animatorStates[i].animator.SetFloat(floatName, value);
         }
     }
+
+    public void UpdateAnimatorsParam(string boolName, bool value)
+    {
+        for (int i = 0; i < this.animatorStates.Length; i++)
+        {
+            this.animatorStates[i].animator.SetBool(boolName, value);
+        } 
+    }
 }
