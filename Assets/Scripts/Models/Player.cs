@@ -31,7 +31,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float infectedDamage;
     [SerializeField] private StateCustoms[] stateCustoms;
     [SerializeField] private PlayerCustoms[] playerCustoms;
-    [SerializeField] private AudioClip dieFX;
+    [SerializeField] private AudioClip dieSoundFX;
+    [SerializeField] private GameObject dieFX;
     [SerializeField] private SkinnedMeshRenderer coatMesh;
     [SerializeField] private Text markerText;
     [SerializeField] private Image markerImage;
@@ -127,7 +128,8 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Player " + this.number + " is dead!");
             notifier.Notify(ON_DIE);
-            AudioManager.Instance.PlayOneShoot(dieFX, this.transform.position);
+            AudioManager.Instance.PlayOneShoot(dieSoundFX, this.transform.position);
+            Instantiate(dieFX,this.transform.position + new Vector3(0, 1), Quaternion.identity);
             this.Mutate(PlayerState.MadChicken);
         }
     }

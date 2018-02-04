@@ -5,6 +5,7 @@ using UnityEngine;
 public class FluTransmission : MonoBehaviour 
 {
     [SerializeField] private float infectSafeTime = 1.0f;
+    [SerializeField] private GameObject particleFX;
     [SerializeField] private AudioClip audioFX;
 
     private Player player;
@@ -26,6 +27,7 @@ public class FluTransmission : MonoBehaviour
                 //Debug.Log("Flu Trans - Transmited to: " + other.transform.name);    
                 GameManager.Instance.Infect(other.Number);
                 AudioManager.Instance.PlayOneShoot(audioFX, other.transform.position);
+                Instantiate(particleFX, other.transform.position + new Vector3(0, 1), Quaternion.identity);
                 StartCoroutine(this.InfectSafe());
             }
         }
