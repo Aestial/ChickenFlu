@@ -55,7 +55,6 @@ public class AIController : MonoBehaviour
             }
             this.rb.velocity = this.agent.velocity;
             this.transform.rotation = Quaternion.LookRotation(this.rb.velocity);
-            Debug.Log(this.rb.velocity);
         }
         else
         {

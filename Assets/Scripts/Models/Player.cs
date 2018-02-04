@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     private float speed;
     private bool canBeInfected;
     private Transform mesh;
+    private Transform botarga;
     private Texture texture;
     private Color color;
     private bool playable;
@@ -140,11 +141,20 @@ public class Player : MonoBehaviour
 
     public void Mutate(PlayerState newState)
     {
-        this.mesh.gameObject.SetActive(false);
         this.state = newState;
+        if (this.state == PlayerState.Infected)
+        {
+            this.botarga = stateCustoms[(int)this.state].mesh;
+            this.botarga.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.mesh.gameObject.SetActive(false);
+            this.botarga.gameObject.SetActive(false);
+            this.mesh = stateCustoms[(int)this.state].mesh;
+            this.mesh.gameObject.SetActive(true);       
+        }
         this.speed = stateCustoms[(int)this.state].speed;
-        this.mesh = stateCustoms[(int)this.state].mesh;
-        this.mesh.gameObject.SetActive(true);   
     }
     public void Win()
     {
