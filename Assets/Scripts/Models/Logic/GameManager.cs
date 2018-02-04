@@ -113,6 +113,7 @@ public class GameManager : Singleton<GameManager>
             this.winner.Win();
             // TODO: Not working
             this.players[this.infected].Mutate(PlayerState.Chicken);
+            //
             StateManager.Instance.State = GameState.Winner;
             StartCoroutine(this.WinnerWait(this.winnerTime));
         }

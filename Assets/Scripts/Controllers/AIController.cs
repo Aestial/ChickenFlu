@@ -7,29 +7,35 @@ public class AIController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Player player;
+    private Rigidbody rb;
+
     private Transform target;
     private int multiplier = 1; // or more
 
-    //public Transform testTransform;
+    private float speed;
 
-    // Use this for initialization
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        player = GetComponent<Player>();
+        this.agent = GetComponent<NavMeshAgent>();
+        this.player = GetComponent<Player>();
+        this.rb = GetComponent<Rigidbody>();
     }
 
     void Start()
     {
-        target = GameObject.Find("Player0").transform;        
+        this.target = GameObject.Find("Player0").transform;
+        this.agent.updatePosition = false;
+        this.agent.updateRotation = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        this.speed = this.multiplier * this.player.Speed;
         if (StateManager.Instance.State == GameState.Battle ||
             StateManager.Instance.State == GameState.StressBattle)
         {
             this.agent.enabled = true;
+            this.agent.speed = this.speed;
             if (this.player.State == PlayerState.Infected ||
                 this.player.State == PlayerState.MadChicken)
             {
@@ -47,9 +53,13 @@ public class AIController : MonoBehaviour
                     this.agent.SetDestination(target.position);
                 }
             }
+            this.rb.velocity = this.agent.velocity;
+            this.transform.rotation = Quaternion.LookRotation(this.rb.velocity);
+            Debug.Log(this.rb.velocity);
         }
         else
         {
+            this.rb.velocity = Vector3.zero;
             this.agent.enabled = false;    
         }
     }

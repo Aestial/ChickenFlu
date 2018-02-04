@@ -46,8 +46,9 @@ public class Player : MonoBehaviour
     private Color color;
     private bool playable;
 
+    private AnimController anim;
+    private InputController input;
     private AIController ai;
-    private PlayerMovement pm;
 
     private PlayerUIController ui;
 
@@ -114,8 +115,9 @@ public class Player : MonoBehaviour
     }
     private void ControlConfig(bool playable)
     {
+        this.anim = GetComponent<AnimController>();
+        this.input= GetComponent<InputController>();
         this.ai = GetComponent<AIController>();
-        this.pm = GetComponent<PlayerMovement>();
         this.ai.enabled = !playable;
     }
     private void CheckHealth()
@@ -146,7 +148,7 @@ public class Player : MonoBehaviour
     }
     public void Win()
     {
-        this.pm.UpdateAnimatorsParam("Winner", true);
+        this.anim.UpdateAnimatorsParam("Winner", true);
     }
     void Update () 
     {
