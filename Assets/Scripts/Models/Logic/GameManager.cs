@@ -9,7 +9,6 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private int totalPlayers;
     [SerializeField] private int numPlayers;
     [SerializeField] private Player playerPrefab;
-    [SerializeField] private Player nPlayerPrefab;
     [SerializeField] private AudioClip startSound;
     // TODO: Temporary 
     [SerializeField] private float winnerTime;
@@ -30,11 +29,11 @@ public class GameManager : Singleton<GameManager>
         this.players = new Player[this.totalPlayers];
         for (int i = 0; i < this.totalPlayers; i++) 
         {
-            Player prefab = (i < numPlayers) ? this.playerPrefab : this.nPlayerPrefab;
             Vector3 position = spawnPositions.GetChild(i).position;
             Quaternion rotation = Quaternion.identity;
-            this.players[i] = Instantiate<Player>(prefab, position, rotation);
+            this.players[i] = Instantiate<Player>(playerPrefab, position, rotation);
             this.players[i].Number = i;
+            this.players[i].Playable = i < numPlayers;
             this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
         }
         this.started = false;

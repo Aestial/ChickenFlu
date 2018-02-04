@@ -45,6 +45,9 @@ public class Player : MonoBehaviour
     private Texture texture;
     private Color color;
     private PlayerUIController ui;
+    private bool playable;
+
+    private AIController ai;
 
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
@@ -74,6 +77,11 @@ public class Player : MonoBehaviour
         get { return ui; }
         set { ui = value; }
     }
+    public bool Playable 
+    {
+        get { return playable; }
+        set { ControlConfig(value); }
+    }
 
     void Start()
     {
@@ -101,6 +109,11 @@ public class Player : MonoBehaviour
         this.markerText.text = (this.number + 1) + "P";
         this.markerText.color = this.color;
         this.markerImage.color = this.color;
+    }
+    private void ControlConfig(bool playable)
+    {
+        this.ai = GetComponent<AIController>();
+        this.ai.enabled = !playable;
     }
     private void CheckHealth()
     {

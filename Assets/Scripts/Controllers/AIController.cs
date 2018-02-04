@@ -13,11 +13,15 @@ public class AIController : MonoBehaviour
     //public Transform testTransform;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GetComponent<Player>();
-        target = GameObject.Find("Player0").transform;
+    }
+
+    void Start()
+    {
+        target = GameObject.Find("Player0").transform;        
     }
 
     void Update()
@@ -52,4 +56,9 @@ public class AIController : MonoBehaviour
             }
         }
     }
+    void OnDisable()
+    {
+        this.agent.enabled = false;
+    }
+
 }

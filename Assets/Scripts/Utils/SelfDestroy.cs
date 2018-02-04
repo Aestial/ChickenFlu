@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class SelfDestroy : MonoBehaviour 
 {
+    [SerializeField] private bool destroyOnAwake;
 	void Awake () 
     {
-        Destroy(this.gameObject);
-		
+        if (destroyOnAwake)
+        {
+            Destroy(this.gameObject);     
+        }
 	}
 }
