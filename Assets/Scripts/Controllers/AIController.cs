@@ -50,7 +50,7 @@ public class AIController : MonoBehaviour
                 }
                 else 
                 {
-                    this.agent.SetDestination(target.position);
+                    this.agent.SetDestination(this.transform.position);
                 }
             }
             this.rb.velocity = this.agent.velocity;

@@ -833,11 +833,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1369338757}
-    - target: {fileID: 114785891514488624, guid: 2f8a9c3c54cc340e78360aff5fabedce,
-        type: 2}
-      propertyPath: joystickThreshold
-      value: 0.05
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f8a9c3c54cc340e78360aff5fabedce, type: 2}
   m_IsPrefabParent: 0
@@ -3654,7 +3649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalPlayers: 4
-  numPlayers: 3
+  numPlayers: 2
   playerPrefab: {fileID: 114207968607053306, guid: 2f8a9c3c54cc340e78360aff5fabedce,
     type: 2}
   startSound: {fileID: 8300000, guid: 4de9e18a947754852b964a1285398fd4, type: 3}

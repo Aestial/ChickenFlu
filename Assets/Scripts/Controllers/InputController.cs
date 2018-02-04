@@ -33,16 +33,16 @@ public class InputController : MonoBehaviour
             Vector3 movement = Vector3.zero;
             switch (this.name)
             {
-                case "Player3":
+                case "Player0":
                     movement = this.KeyboardMovement(InputType.WASD);
                     break;
-                case "Player4":
+                case "Player1":
                     movement = this.KeyboardMovement(InputType.Arrows);
                     break;
-                case "Player0":
+                case "Player2":
                     movement = this.JoyStickMovement(1);
                     break;
-                case "Player1":
+                case "Player3":
                     movement = this.JoyStickMovement(2);
                     break;
             }
