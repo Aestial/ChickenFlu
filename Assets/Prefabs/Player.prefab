@@ -4444,7 +4444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf49d2d10ca4a7f8678dfae32afd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infectedDamage: 0.01
+  infectedDamage: 0.002
   stateCustoms:
   - state: 0
     mesh: {fileID: 4335606520935464}
