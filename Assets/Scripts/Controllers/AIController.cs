@@ -10,7 +10,7 @@ public class AIController : MonoBehaviour
     private Rigidbody rb;
 
     private Transform target;
-    private int multiplier = 1; // or more
+    [SerializeField] private int multiplier = 1; // or more
 
     private float speed;
 
