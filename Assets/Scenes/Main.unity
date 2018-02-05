@@ -277,7 +277,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -719,7 +719,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 44
   m_IsActive: 1
 --- !u!4 &268909811
 Transform:
@@ -1193,7 +1193,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3661,7 +3661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalPlayers: 4
-  numPlayers: 2
+  numPlayers: 1
   playerPrefab: {fileID: 114207968607053306, guid: 2f8a9c3c54cc340e78360aff5fabedce,
     type: 2}
   startSound: {fileID: 8300000, guid: 4de9e18a947754852b964a1285398fd4, type: 3}

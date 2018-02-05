@@ -5,13 +5,12 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    [SerializeField] private float multiplier = 4.0f;
+
     private Player player;
     private Rigidbody rb;
-
+    private NavMeshAgent agent;
     private Transform target;
-    [SerializeField] private int multiplier = 1; // or more
-
     private float speed;
 
     void Awake()
