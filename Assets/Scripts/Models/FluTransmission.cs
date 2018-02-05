@@ -15,13 +15,13 @@ public class FluTransmission : MonoBehaviour
         this.player = GetComponent<Player>();
 	}
 
-	void OnCollisionEnter(Collision col) 
+    void OnCollisionEnter(Collision collision) 
     {
-        if (col.transform.tag == "Player" && 
+        if (collision.transform.tag == "Player" && 
             (this.player.State == PlayerState.Infected ||
              this.player.State == PlayerState.MadChicken))
         {
-            Player other = col.transform.GetComponent<Player>();
+            Player other = collision.transform.GetComponent<Player>();
             if (other.CanBeInfected)
             {
                 //Debug.Log("Flu Trans - Transmited to: " + other.transform.name);    
