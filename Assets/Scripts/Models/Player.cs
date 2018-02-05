@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
     {
         if (this.state == PlayerState.Infected) 
         {
-            this.UpdateHealth(-infectedDamage);
+            this.UpdateHealth(-infectedDamage*Time.deltaTime);
         }
 	}
     void OnDestroy()
