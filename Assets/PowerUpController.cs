@@ -43,7 +43,6 @@ public class PowerUpController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update () {
 		
 	}

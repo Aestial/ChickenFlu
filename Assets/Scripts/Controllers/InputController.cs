@@ -1,13 +1,6 @@
 ﻿using UnityEngine;
 using CnControls;
 
-public enum InputType 
-{
-    WASD,
-    Arrows,
-    TouchJoystick,
-    Joystick
-}
 
 public class InputController : MonoBehaviour 
 {
@@ -15,6 +8,13 @@ public class InputController : MonoBehaviour
     [SerializeField] private float keyboardThreshold = 0.05f;
     [SerializeField] private float speedMultiplier = 4f;
 
+    private enum InputType
+    {
+        WASD,
+        Arrows,
+        TouchJoystick,
+        Joystick
+    }
     private Player player;
     private Rigidbody rb;
     private float speed;
