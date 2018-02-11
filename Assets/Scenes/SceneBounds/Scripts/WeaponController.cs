@@ -40,10 +40,20 @@ public class WeaponController : MonoBehaviour {
 	}
 
 	void Shoot() {
-		
-		GameObject weaponPSystem = Instantiate(particleSystemPrefab, pSystemSource.position, Quaternion.identity);
-		Rigidbody systemRigidbody = weaponPSystem.GetComponent<Rigidbody>();
-		systemRigidbody.AddForce(transform.forward * shootForce, ForceMode.Force);
+
+		if (name == "Flamethrower") {
+			
+			GameObject weaponPSystem = Instantiate (particleSystemPrefab, pSystemSource.position, Quaternion.identity);
+			weaponPSystem.transform.SetParent (pSystemSource);
+
+		} else {
+			
+			GameObject weaponPSystem = Instantiate (particleSystemPrefab, pSystemSource.position, Quaternion.identity);
+			weaponPSystem.transform.SetParent (pSystemSource);
+			Rigidbody systemRigidbody = weaponPSystem.GetComponent<Rigidbody>();
+			systemRigidbody.AddForce(transform.forward * shootForce, ForceMode.Force);
+
+		}
 
 	}
 

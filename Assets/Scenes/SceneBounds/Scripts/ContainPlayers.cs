@@ -9,11 +9,12 @@ public class ContainPlayers : MonoBehaviour {
 	/// a weapon that turns back the player to the battlefield zone.
 	/// </summary>
 
+	public Transform weaponsContainer;
 	public GameObject[] weapon;
 	private Vector3 weaponPosition;
 	private Vector3 weaponOffset = new Vector3(0, 3, 0);
 	private int weaponIndex;
-	private Vector3 playerPosition;
+	private GameObject playerObj;
 
 	private bool generateExplotion;
 	public float explotionDelay;
@@ -28,10 +29,10 @@ public class ContainPlayers : MonoBehaviour {
 	void Start () {
 
 		weaponIndex = 0;
-		weapon = new GameObject[transform.childCount];
+		weapon = new GameObject[weaponsContainer.childCount];
 
-		for (int i=0; i < transform.childCount; i++) {
-			weapon[i] = transform.GetChild(i).gameObject;
+		for (int i=0; i < weaponsContainer.childCount; i++) {
+			weapon[i] = weaponsContainer.GetChild(i).gameObject;
 			weapon[i].SetActive(false);
 		}
 
@@ -44,7 +45,7 @@ public class ContainPlayers : MonoBehaviour {
 		
 		Debug.Log(other.name);
 		if (other.tag == "Player") {
-			playerPosition = other.transform.position;
+			playerObj = other.gameObject;
 			ReturnToTerrain();
 			rgbd = other.GetComponent<Rigidbody> ();
 		}
@@ -53,7 +54,7 @@ public class ContainPlayers : MonoBehaviour {
 
 	void ReturnToTerrain () {
 
-		weaponPosition = playerPosition + weaponOffset;
+		weaponPosition = playerObj.transform.position + weaponOffset;
 		Debug.Log("Calculate position");
 		//GameObject newWeapon = Instantiate(weaponPrefab, weaponPosition, Quaternion.identity);
 
@@ -65,7 +66,7 @@ public class ContainPlayers : MonoBehaviour {
 			WeaponController weaponController = weapon[weaponIndex].GetComponent<WeaponController>();
 			weaponController.disableWeapon = true;
 			weaponController.t0 = Time.time;
-			weaponController.AimPlayer(playerPosition);
+			weaponController.AimPlayer(playerObj.transform.position);
 
 			if (weaponIndex < transform.childCount - 1) {
 				weaponIndex++;
@@ -96,7 +97,8 @@ public class ContainPlayers : MonoBehaviour {
 	void ApplyExplotion () {
 
 		//Instantiate(testObj, playerPosition + explotionOffset, Quaternion.identity);
-		rgbd.AddExplosionForce (bulletForce, playerPosition + explotionOffset, bulletRadius);
+		playerObj.GetComponent<VFX>().InstantiatePSystem();
+		rgbd.AddExplosionForce (bulletForce, playerObj.transform.position + explotionOffset, bulletRadius);
 		generateExplotion = false;
 		explotionCounter = 0;
 
