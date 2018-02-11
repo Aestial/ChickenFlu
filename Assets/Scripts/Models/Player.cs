@@ -158,10 +158,12 @@ public class Player : MonoBehaviour
         }
         this.speed = stateCustoms[(int)this.state].speed;
     }
+
     public void Win()
     {
         this.anim.UpdateAnimatorsParam("Winner", true);
     }
+
     void Update () 
     {
         if (this.state == PlayerState.Infected) 
@@ -169,6 +171,7 @@ public class Player : MonoBehaviour
             this.UpdateHealth(-infectedDamage*Time.deltaTime);
         }
 	}
+
     void OnDestroy()
     {
         notifier.UnsubcribeAll();
