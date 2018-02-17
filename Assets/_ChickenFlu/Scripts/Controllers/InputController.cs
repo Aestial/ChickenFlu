@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using CnControls;
-
+using Rewired;
 
 public class InputController : MonoBehaviour 
 {
+    public int playerId = 0;
     [SerializeField] private float joystickThreshold = 0.085f;
     [SerializeField] private float keyboardThreshold = 0.05f;
     [SerializeField] private float speedMultiplier = 4f;
-
+    
     private enum InputType
     {
         WASD,
@@ -15,6 +16,7 @@ public class InputController : MonoBehaviour
         TouchJoystick,
         Joystick
     }
+    private Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
     private Player player;
     private Rigidbody rb;
     private float speed;
@@ -23,67 +25,26 @@ public class InputController : MonoBehaviour
     {
         this.player = GetComponent<Player>();
 		this.rb = GetComponent<Rigidbody> ();
+        this.playerId = this.player.Number;
 	}
 	void FixedUpdate () 
     {
+        if(!ReInput.isReady) return; // Exit if Rewired isn't ready. This would only happen during a script recompile in the editor.
+        if(player == null) return;
         this.speed = this.speedMultiplier * this.player.Speed;
         if (StateManager.Instance.State == GameState.Battle ||
             StateManager.Instance.State == GameState.StressBattle)
         {
-            Vector3 movement = Vector3.zero;
-            switch (this.name)
+            Vector3 moveVector = Vector3.zero;
+            moveVector.x = rp.GetAxis("Move Horizontal"); // get input by name or action id
+            moveVector.z = rp.GetAxis("Move Vertical");
+            bool fire = rp.GetButtonDown("Fire");
+            
+            if (moveVector != Vector3.zero)
             {
-                case "Player0":
-                    movement = this.KeyboardMovement(InputType.WASD);
-                    break;
-                case "Player1":
-                    movement = this.KeyboardMovement(InputType.Arrows);
-                    break;
-                case "Player2":
-                    movement = this.JoyStickMovement(1);
-                    break;
-                case "Player3":
-                    movement = this.JoyStickMovement(2);
-                    break;
-            }
-            if (movement != Vector3.zero)
-            {
-                this.rb.velocity = (movement * this.speed);
-                this.transform.rotation = Quaternion.LookRotation(movement);
+                this.rb.velocity = (moveVector * this.speed);
+                this.transform.rotation = Quaternion.LookRotation(moveVector);
             }
         }
 	}
-    Vector3 KeyboardMovement (InputType type) 
-    {
-        switch(type)
-        {
-            case InputType.Arrows:
-                if (Mathf.Abs(Input.GetAxis("KHorizontal")) > keyboardThreshold || 
-                    Mathf.Abs(Input.GetAxis("KVertical")) > keyboardThreshold)
-                    return new Vector3(Input.GetAxis("KHorizontal"), 0f, Input.GetAxis("KVertical"));
-                return Vector3.zero;
-            case InputType.WASD:
-                if (Mathf.Abs(Input.GetAxis("LKHorizontal")) > keyboardThreshold || 
-                    Mathf.Abs(Input.GetAxis("LKVertical")) > keyboardThreshold)
-                    return new Vector3(Input.GetAxis("LKHorizontal"), 0f, Input.GetAxis("LKVertical"));
-                return Vector3.zero;
-            default:
-                return Vector3.zero;
-        }
-	}
-    Vector3 JoyStickMovement(int player)
-    {
-        if (Mathf.Abs(Input.GetAxis("LeftStickX-Player" + player)) > joystickThreshold &&
-            Mathf.Abs(Input.GetAxis("LeftStickY-Player" + player)) > joystickThreshold)
-            return new Vector3(Input.GetAxis("LeftStickX-Player" + player), 0f, -Input.GetAxis("LeftStickY-Player" + player));
-        return Vector3.zero;
-    }
-    //Vector3 TouchMovement()
-    //{
-    //    if (Input.touchCount > 0)
-    //    {
-    //        return new Vector3(CnInputManager.GetAxis("Horizontal"), 0f, CnInputManager.GetAxis("Vertical"));
-    //    }
-    //    return Vector3.zero;
-    //}
 }
