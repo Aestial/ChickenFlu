@@ -37,7 +37,7 @@ public class UIController : Singleton<UIController>
                 this.states[i].canvas.enabled = true;
             }
         }
-        Debug.Log("UI - Setting canvas for state: " + state);
+        // Debug.Log("UI - Setting canvas for state: " + state);
     }
 
     void HandleOnExit(params object[] args)
