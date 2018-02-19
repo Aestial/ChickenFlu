@@ -48,6 +48,7 @@ public class ContainPlayers : MonoBehaviour {
 			playerObj = other.gameObject;
 			ReturnToTerrain();
 			rgbd = other.GetComponent<Rigidbody> ();
+			other.GetComponent<InputController>().enabled = false;
 		}
 
 	}
@@ -58,7 +59,7 @@ public class ContainPlayers : MonoBehaviour {
 		Debug.Log("Calculate position");
 		//GameObject newWeapon = Instantiate(weaponPrefab, weaponPosition, Quaternion.identity);
 
-		if (!weapon[weaponIndex].activeInHierarchy) {
+		//if (!weapon[weaponIndex].activeInHierarchy) {
 
 			Debug.Log("Enable weapon");
 			weapon[weaponIndex].SetActive(true);
@@ -76,7 +77,7 @@ public class ContainPlayers : MonoBehaviour {
 
 			generateExplotion = true;
 
-		}
+		//}
 
 	}
 

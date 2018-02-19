@@ -10,7 +10,8 @@ public enum PlayerState
     /** Dying */
     MadChicken,
     /** Dead */
-    Chicken
+    Chicken,
+    MovementDisabled
 }
 [System.Serializable]
 public struct StateCustoms
@@ -176,4 +177,5 @@ public class Player : MonoBehaviour
     {
         notifier.UnsubcribeAll();
     }
+
 }

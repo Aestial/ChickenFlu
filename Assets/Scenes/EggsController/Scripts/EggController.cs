@@ -32,6 +32,7 @@ public class EggController : MonoBehaviour {
 			Vector3 fwd = transform.TransformDirection(Vector3.forward);
 			//eggAmmo[eggIndex].GetComponent<Rigidbody>().AddForce(fwd);
 			eggAmmo[eggIndex].SetActive(true);
+			eggAmmo[eggIndex].transform.position = eggSource.transform.position;
 			Rigidbody eggRgbd = eggAmmo[eggIndex].GetComponent<Rigidbody>();
 			eggRgbd.AddForceAtPosition(fwd * forceMultiply, eggSource.position, ForceMode.Force);
 			eggRgbd.useGravity = true;
