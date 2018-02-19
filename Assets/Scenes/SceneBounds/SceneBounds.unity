@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1802834, g: 0.2257135, b: 0.3069223, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -918,7 +918,7 @@ Prefab:
     - target: {fileID: 114074190127822596, guid: e45c06356f3298b48a8128bc80c52a2c,
         type: 2}
       propertyPath: bulletForce
-      value: 1000
+      value: 3100
       objectReference: {fileID: 0}
     - target: {fileID: 114074190127822596, guid: e45c06356f3298b48a8128bc80c52a2c,
         type: 2}
@@ -1276,7 +1276,7 @@ MonoBehaviour:
   weaponsContainer: {fileID: 650685960}
   weapon: []
   explotionDelay: 0.5
-  bulletForce: 1000
+  bulletForce: 3100
   bulletRadius: 8
   explotionOffset: {x: 0, y: 0, z: -0.5}
 --- !u!4 &1037066361 stripped
@@ -1635,7 +1635,7 @@ MonoBehaviour:
   weaponsContainer: {fileID: 650685960}
   weapon: []
   explotionDelay: 0.5
-  bulletForce: 1000
+  bulletForce: 3100
   bulletRadius: 8
   explotionOffset: {x: 0, y: 0, z: 0.5}
 --- !u!4 &1681472275 stripped
@@ -1885,7 +1885,7 @@ MonoBehaviour:
   weaponsContainer: {fileID: 650685960}
   weapon: []
   explotionDelay: 0.5
-  bulletForce: 1000
+  bulletForce: 3100
   bulletRadius: 8
   explotionOffset: {x: 0.5, y: 0, z: 0}
 --- !u!4 &1791092203 stripped
