@@ -19,6 +19,7 @@ public class EggController : MonoBehaviour {
 
 		for (int i = 0; i < ammoLimit; i++) {
 			eggAmmo[i] = Instantiate(eggPrefab, eggSource.position, Quaternion.identity); 
+			eggAmmo[i].SetActive(false);
 		}
 		
 	}
@@ -26,18 +27,16 @@ public class EggController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space) && (eggIndex < ammoLimit)) {
 
 			Vector3 fwd = transform.TransformDirection(Vector3.forward);
-
-			if (eggIndex < ammoLimit - 1) {
-				eggIndex++;
-			} else {
-				eggIndex = 0;
-			}
-
 			//eggAmmo[eggIndex].GetComponent<Rigidbody>().AddForce(fwd);
-			eggAmmo[eggIndex].GetComponent<Rigidbody>().AddForceAtPosition(fwd * forceMultiply);
+			eggAmmo[eggIndex].SetActive(true);
+			Rigidbody eggRgbd = eggAmmo[eggIndex].GetComponent<Rigidbody>();
+			eggRgbd.AddForceAtPosition(fwd * forceMultiply, eggSource.position, ForceMode.Force);
+			eggRgbd.useGravity = true;
+			eggAmmo[eggIndex].GetComponent<MeshCollider>().isTrigger = false;
+			eggIndex++; 
 
 		}
 
