@@ -10,6 +10,7 @@ public class EggController : MonoBehaviour {
 	public int forceMultiply;
 	private int eggIndex;
 	private GameObject[] eggAmmo;
+	public int eggIdentifier;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,8 @@ public class EggController : MonoBehaviour {
 		eggIndex = 0;
 
 		for (int i = 0; i < ammoLimit; i++) {
-			eggAmmo[i] = Instantiate(eggPrefab, eggSource.position, Quaternion.identity); 
+			eggAmmo[i] = Instantiate(eggPrefab, eggSource.position, Quaternion.identity);
+			eggAmmo[i].GetComponent<EggBehaviour>().eggIdentifyer = eggIdentifier;
 			eggAmmo[i].SetActive(false);
 		}
 		

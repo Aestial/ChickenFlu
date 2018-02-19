@@ -41,6 +41,7 @@ public class GameManager : Singleton<GameManager>
             this.players[i].Number = i;
             this.players[i].Playable = i < numPlayers;
             this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
+            this.players[i].GetComponent<EggController>().eggIdentifier = i;
         }
         this.started = false;
         this.roulette = GetComponent<RouletteController>();
