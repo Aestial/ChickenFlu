@@ -5,17 +5,8 @@ using Rewired;
 public class InputController : MonoBehaviour 
 {
     public int playerId = 0;
-    [SerializeField] private float joystickThreshold = 0.085f;
-    [SerializeField] private float keyboardThreshold = 0.05f;
     [SerializeField] private float speedMultiplier = 4f;
     
-    private enum InputType
-    {
-        WASD,
-        Arrows,
-        TouchJoystick,
-        Joystick
-    }
     private Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
     private Player player;
     private Rigidbody rb;
@@ -27,7 +18,7 @@ public class InputController : MonoBehaviour
 		this.rb = GetComponent<Rigidbody> ();
         this.playerId = this.player.Number;
 	}
-	void FixedUpdate () 
+	void FixedUpdate ()
     {
         if(!ReInput.isReady) return; // Exit if Rewired isn't ready. This would only happen during a script recompile in the editor.
         if(player == null) return;

@@ -10,7 +10,8 @@ public enum PlayerState
     /** Dying */
     MadChicken,
     /** Dead */
-    Chicken
+    Chicken,
+    Damaged
 }
 [System.Serializable]
 public struct StateCustoms
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
 
     private int number;
     private float health;
-    private PlayerState state;
+    public PlayerState state;
     private float speed;
     private bool canBeInfected;
     private Transform mesh;
@@ -148,6 +149,10 @@ public class Player : MonoBehaviour
         {
             this.botarga = stateCustoms[(int)this.state].mesh;
             this.botarga.gameObject.SetActive(true);
+        }
+        else if (this.state == PlayerState.Damaged)
+        {
+            
         }
         else
         {
