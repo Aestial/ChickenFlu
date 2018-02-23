@@ -7,7 +7,7 @@ public class InputController : MonoBehaviour
     public int playerId = 0;
     [SerializeField] private float speedMultiplier = 4f;
     
-    private Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
+    public Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
     private Player player;
     private Rigidbody rb;
     private float speed;
