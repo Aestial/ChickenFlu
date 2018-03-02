@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using CnControls;
-
+using System.Collections;
 
 public class InputController : MonoBehaviour 
 {
@@ -18,40 +18,48 @@ public class InputController : MonoBehaviour
     private Player player;
     private Rigidbody rb;
     private float speed;
+    public bool movementDisabled;
 
 	void Start () 
     {
         this.player = GetComponent<Player>();
 		this.rb = GetComponent<Rigidbody> ();
+        movementDisabled = false;
 	}
 	void FixedUpdate () 
     {
-        this.speed = this.speedMultiplier * this.player.Speed;
-        if (StateManager.Instance.State == GameState.Battle ||
-            StateManager.Instance.State == GameState.StressBattle)
-        {
-            Vector3 movement = Vector3.zero;
-            switch (this.name)
+        
+        if (!movementDisabled) {
+        
+            this.speed = this.speedMultiplier * this.player.Speed;
+            if (StateManager.Instance.State == GameState.Battle ||
+                StateManager.Instance.State == GameState.StressBattle)
             {
-                case "Player0":
-                    movement = this.KeyboardMovement(InputType.WASD);
-                    break;
-                case "Player1":
-                    movement = this.KeyboardMovement(InputType.Arrows);
-                    break;
-                case "Player2":
-                    movement = this.JoyStickMovement(1);
-                    break;
-                case "Player3":
-                    movement = this.JoyStickMovement(2);
-                    break;
+                Vector3 movement = Vector3.zero;
+                switch (this.name)
+                {
+                    case "Player0":
+                        movement = this.KeyboardMovement(InputType.WASD);
+                        break;
+                    case "Player1":
+                        movement = this.KeyboardMovement(InputType.Arrows);
+                        break;
+                    case "Player2":
+                        movement = this.JoyStickMovement(1);
+                        break;
+                    case "Player3":
+                        movement = this.JoyStickMovement(2);
+                        break;
+                }
+                if (movement != Vector3.zero)
+                {
+                    this.rb.velocity = (movement * this.speed);
+                    this.transform.rotation = Quaternion.LookRotation(movement);
+                }
             }
-            if (movement != Vector3.zero)
-            {
-                this.rb.velocity = (movement * this.speed);
-                this.transform.rotation = Quaternion.LookRotation(movement);
-            }
+
         }
+
 	}
     Vector3 KeyboardMovement (InputType type) 
     {
@@ -78,6 +86,15 @@ public class InputController : MonoBehaviour
             return new Vector3(Input.GetAxis("LeftStickX-Player" + player), 0f, -Input.GetAxis("LeftStickY-Player" + player));
         return Vector3.zero;
     }
+
+    public IEnumerator ReturnMovement () {
+
+        movementDisabled = true;
+        yield return new WaitForSeconds(2);
+        movementDisabled = false;
+
+    }
+
     //Vector3 TouchMovement()
     //{
     //    if (Input.touchCount > 0)

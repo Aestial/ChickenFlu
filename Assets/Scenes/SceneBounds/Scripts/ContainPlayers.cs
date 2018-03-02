@@ -48,7 +48,12 @@ public class ContainPlayers : MonoBehaviour {
 			playerObj = other.gameObject;
 			ReturnToTerrain();
 			rgbd = other.GetComponent<Rigidbody> ();
-			other.GetComponent<InputController>().enabled = false;
+			InputController currentInputController = other.GetComponent<InputController>();
+
+			if (!currentInputController.movementDisabled) {
+				StartCoroutine(currentInputController.ReturnMovement());
+			}
+	
 		}
 
 	}

@@ -393,7 +393,7 @@ MonoBehaviour:
   weaponsContainer: {fileID: 2060031764}
   weapon: []
   explotionDelay: 0.5
-  bulletForce: 3100
+  bulletForce: 1000
   bulletRadius: 8
   explotionOffset: {x: 0, y: 0, z: 0.5}
 --- !u!23 &127066977
@@ -1780,7 +1780,7 @@ MonoBehaviour:
   weaponsContainer: {fileID: 2060031764}
   weapon: []
   explotionDelay: 0.5
-  bulletForce: 3100
+  bulletForce: 1000
   bulletRadius: 8
   explotionOffset: {x: 0, y: 0, z: -0.5}
 --- !u!23 &894804670
@@ -2956,7 +2956,7 @@ MonoBehaviour:
   weaponsContainer: {fileID: 2060031764}
   weapon: []
   explotionDelay: 0.5
-  bulletForce: 3100
+  bulletForce: 1000
   bulletRadius: 8
   explotionOffset: {x: 0.5, y: 0, z: 0}
 --- !u!23 &1454717881
@@ -4926,7 +4926,7 @@ Prefab:
     - target: {fileID: 114074190127822596, guid: e45c06356f3298b48a8128bc80c52a2c,
         type: 2}
       propertyPath: bulletForce
-      value: 3100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 114074190127822596, guid: e45c06356f3298b48a8128bc80c52a2c,
         type: 2}
