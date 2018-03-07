@@ -8,6 +8,8 @@ namespace JoystickControl
     public class JoystickAssigner : MonoBehaviour
     {
         [SerializeField] private JoystickCanvas m_CanvasController;
+        [SerializeField] private AudioClip selectedClip;
+        [SerializeField] private AudioClip enabledClip;
 
         void Update()
         {
@@ -56,6 +58,7 @@ namespace JoystickControl
                     if (player == null)
                         return;
                     player.controllers.AddController(joystick, false);
+                    AudioManager.Instance.PlayOneShoot2D(selectedClip);
                 }
             }
             // If all players have joysticks, enable joystick auto-assignment
