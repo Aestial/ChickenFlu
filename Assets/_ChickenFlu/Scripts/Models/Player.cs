@@ -37,10 +37,10 @@ public class Player : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer coatMesh;
     [SerializeField] private Text markerText;
     [SerializeField] private Image markerImage;
-
-    private int number;
+    [SerializeField] private int number;
+    
     private float health;
-    public PlayerState state;
+    private PlayerState state;
     private float speed;
     private bool canBeInfected;
     private Transform mesh;
