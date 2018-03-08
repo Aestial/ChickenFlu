@@ -11,11 +11,11 @@ public enum PlayerState
     MadChicken,
     /** Dead */
     Chicken,
-<<<<<<< HEAD:Assets/Scripts/Models/Player.cs
-    MovementDisabled
-=======
+//<<<<<<< HEAD:Assets/Scripts/Models/Player.cs
+    MovementDisabled,
+//=======
     Damaged
->>>>>>> master:Assets/_ChickenFlu/Scripts/Models/Player.cs
+//>>>>>>> master:Assets/_ChickenFlu/Scripts/Models/Player.cs
 }
 [System.Serializable]
 public struct StateCustoms
