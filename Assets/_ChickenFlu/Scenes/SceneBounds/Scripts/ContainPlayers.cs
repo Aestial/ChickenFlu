@@ -50,9 +50,9 @@ public class ContainPlayers : MonoBehaviour {
 			rgbd = other.GetComponent<Rigidbody> ();
 			InputController currentInputController = other.GetComponent<InputController>();
 
-			if (!currentInputController.movementDisabled) {
+/*			if (!currentInputController.movementDisabled) {
 				StartCoroutine(currentInputController.ReturnMovement());
-			}
+			}*/
 	
 		}
 
