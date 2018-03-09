@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33104889072205592}
   - component: {fileID: 23189185058536898}
   - component: {fileID: 54378367717224970}
-  - component: {fileID: 64287015989943010}
   - component: {fileID: 114628075645379230}
+  - component: {fileID: 135848167281066214}
   m_Layer: 8
   m_Name: Egg1
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1405300799998700}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.23, y: 0.25, z: 0.76}
+  m_LocalPosition: {x: 0.203, y: 0.25, z: -2.9493}
   m_LocalScale: {x: 2, y: 2.2, z: 2.4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,20 +100,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &64287015989943010
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1405300799998700}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300002, guid: 30b0c87680e76604a959637052b5e8ac, type: 3}
 --- !u!114 &114628075645379230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,3 +114,15 @@ MonoBehaviour:
   eggIdentifyer: 0
   openParticles: {fileID: 1258908545436968, guid: 3cba42cd9e5f36444bac3b392b19570f,
     type: 2}
+--- !u!135 &135848167281066214
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405300799998700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Center: {x: 0, y: 0, z: 0}
