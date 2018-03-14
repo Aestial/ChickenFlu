@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager> 
 {
     [SerializeField] private int totalPlayers;
-    [SerializeField] private int numPlayers;
     [SerializeField] private Player playerPrefab;
     [SerializeField] private AudioClip startSound;
     // TODO: Temporary 
@@ -17,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Transform healthPanel;
 
     private Player[] players;
+    [SerializeField] private int numPlayers;
     private Player winner;
     private int infected;
     private int remain;
@@ -51,19 +51,21 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void StartGame(int players) {
-        this.started = true;
-        this.numPlayers = players;
-        for (int i = 0; i < this.totalPlayers; i++) 
-        {
-            Vector3 position = this.spawnPositions.GetChild(i).position;
-            Quaternion rotation = Quaternion.identity;
-            this.players[i] = Instantiate<Player>(this.playerPrefab, position, rotation);
-            this.players[i].Number = i;
-            this.players[i].Playable = i < this.numPlayers;
-            this.players[i].UI = this.healthPanel.GetChild(i).GetComponent<PlayerUIController>();
+        if (!started) {
+            this.started = true;
+            this.numPlayers = players;
+            for (int i = 0; i < this.totalPlayers; i++) 
+            {
+                Vector3 position = this.spawnPositions.GetChild(i).position;
+                Quaternion rotation = Quaternion.identity;
+                this.players[i] = Instantiate<Player>(this.playerPrefab, position, rotation);
+                this.players[i].Number = i;
+                this.players[i].Playable = i < this.numPlayers;
+                this.players[i].UI = this.healthPanel.GetChild(i).GetComponent<PlayerUIController>();
+            }
+            StartCoroutine(this.SpinRoulette());
+            AudioManager.Instance.PlayOneShoot2D(this.startSound, 0.5f);
         }
-        StartCoroutine(this.SpinRoulette());
-        AudioManager.Instance.PlayOneShoot2D(this.startSound, 0.5f);
     }
 
     public void Infect(int player)
