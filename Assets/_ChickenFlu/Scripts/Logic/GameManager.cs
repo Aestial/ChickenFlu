@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>
     private Player winner;
     private int infected;
     private int remain;
-    private bool started;
+    private bool started = false;
     private RouletteController roulette;
     private Notifier notifier;
 
@@ -33,18 +33,7 @@ public class GameManager : Singleton<GameManager>
     {
         this.remain = this.totalPlayers;
         this.players = new Player[this.totalPlayers];
-        for (int i = 0; i < this.totalPlayers; i++) 
-        {
-            Vector3 position = spawnPositions.GetChild(i).position;
-            Quaternion rotation = Quaternion.identity;
-            this.players[i] = Instantiate<Player>(playerPrefab, position, rotation);
-            this.players[i].Number = i;
-            this.players[i].Playable = i < numPlayers;
-            this.players[i].UI = healthPanel.GetChild(i).GetComponent<PlayerUIController>();
-        }
-        this.started = false;
         this.roulette = GetComponent<RouletteController>();
-
         // Notifier
         notifier = new Notifier();
         notifier.Subscribe(Player.ON_DIE, HandleOnDie);
@@ -53,19 +42,28 @@ public class GameManager : Singleton<GameManager>
 	}
     private void Update()
     {
-        if( StateManager.Instance.State == GameState.Start &&
-            Input.GetKeyUp(KeyCode.Return) && !started)
-        {
-            started = true;
-            StartCoroutine(this.SpinRoulette());
-            AudioManager.Instance.PlayOneShoot2D(startSound, 0.5f);
-        }
         if ( StateManager.Instance.State == GameState.End &&
             Input.GetKeyUp(KeyCode.Return))
         {
             // TODO: Change This!
             SceneManager.LoadScene("Main");
         }
+    }
+
+    public void StartGame(int players) {
+        this.started = true;
+        this.numPlayers = players;
+        for (int i = 0; i < this.totalPlayers; i++) 
+        {
+            Vector3 position = this.spawnPositions.GetChild(i).position;
+            Quaternion rotation = Quaternion.identity;
+            this.players[i] = Instantiate<Player>(this.playerPrefab, position, rotation);
+            this.players[i].Number = i;
+            this.players[i].Playable = i < this.numPlayers;
+            this.players[i].UI = this.healthPanel.GetChild(i).GetComponent<PlayerUIController>();
+        }
+        StartCoroutine(this.SpinRoulette());
+        AudioManager.Instance.PlayOneShoot2D(this.startSound, 0.5f);
     }
 
     public void Infect(int player)
