@@ -6,10 +6,10 @@ public class EggBehaviour2 : MonoBehaviour {
 
 	public int eggIdentifyer;				//To identiffy the player eggs and prevent the collision
 	public GameObject openParticles;
-	private Animator animator;
+	//private Animator animator;
 
 	void Start () {
-		animator = GetComponent<Animator>();
+		//animator = GetComponent<Animator>();
 	}
 
 	void OnCollisionEnter(Collision other) {
@@ -30,7 +30,7 @@ public class EggBehaviour2 : MonoBehaviour {
 
 	IEnumerator SpawnItem (float randomValue) {
 
-		animator.SetTrigger("Open");
+//		animator.SetTrigger("Open");
 
 		if(randomValue > 0.5f) { //%50 percent chance
 
@@ -50,7 +50,7 @@ public class EggBehaviour2 : MonoBehaviour {
 			Instantiate(openParticles, transform.position, Quaternion.identity);
 			Instantiate(asyncLoad.asset, transform.position, Quaternion.identity );
 			//Debug.Log("Cuckoo");
-			//Destroy(gameObject);
+			Destroy(gameObject);
 
 		} else {
 
@@ -70,7 +70,7 @@ public class EggBehaviour2 : MonoBehaviour {
 			Instantiate(openParticles, transform.position, Quaternion.identity);
 			Instantiate(asyncLoad.asset, transform.position, Quaternion.identity );
 			//Debug.Log("Vaccine");
-			//Destroy(gameObject);
+			Destroy(gameObject);
 
 		}
 

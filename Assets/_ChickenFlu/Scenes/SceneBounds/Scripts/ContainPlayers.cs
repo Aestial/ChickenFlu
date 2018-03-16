@@ -24,6 +24,9 @@ public class ContainPlayers : MonoBehaviour {
 	private Rigidbody rgbd;
 	public Vector3 explotionOffset;				//Offset to generate the explotion to pull back the player to the battlefield, depends of the wall orientation
 
+	private EZMovement[] eZMovement = new EZMovement[4];
+	private int playerIndex;
+	public float timeDisabled;
 	//public GameObject testObj;
 
 	void Start () {
@@ -38,6 +41,7 @@ public class ContainPlayers : MonoBehaviour {
 
 		generateExplotion = false;
 		explotionCounter = 0;
+		playerIndex = 0;
 
 	}
 
@@ -45,15 +49,13 @@ public class ContainPlayers : MonoBehaviour {
 		
 		Debug.Log(other.name);
 		if (other.tag == "Player") {
-			playerObj = other.gameObject;
-			ReturnToTerrain();
-			rgbd = other.GetComponent<Rigidbody> ();
-			InputController currentInputController = other.GetComponent<InputController>();
 
-/*			if (!currentInputController.movementDisabled) {
-				StartCoroutine(currentInputController.ReturnMovement());
-			}*/
-	
+			playerObj = other.gameObject;
+			rgbd = other.GetComponent<Rigidbody> ();
+
+			ReturnToTerrain();
+			DisableMovement(other.gameObject);
+
 		}
 
 	}
@@ -62,9 +64,6 @@ public class ContainPlayers : MonoBehaviour {
 
 		weaponPosition = playerObj.transform.position + weaponOffset;
 		Debug.Log("Calculate position");
-		//GameObject newWeapon = Instantiate(weaponPrefab, weaponPosition, Quaternion.identity);
-
-		//if (!weapon[weaponIndex].activeInHierarchy) {
 
 			Debug.Log("Enable weapon");
 			weapon[weaponIndex].SetActive(true);
@@ -102,12 +101,34 @@ public class ContainPlayers : MonoBehaviour {
 
 	void ApplyExplotion () {
 
-		//Instantiate(testObj, playerPosition + explotionOffset, Quaternion.identity);
 		playerObj.GetComponent<VFX>().InstantiatePSystem();
 		rgbd.AddExplosionForce (bulletForce, playerObj.transform.position + explotionOffset, bulletRadius);
 		generateExplotion = false;
 		explotionCounter = 0;
 
 	}
+
+	private void DisableMovement(GameObject other) {
+
+		eZMovement[playerIndex] = other.GetComponent<EZMovement>();
+		eZMovement[playerIndex].enabled = false;
+
+		//Disable movement script
+		StartCoroutine(ReturnMovement(playerIndex));
+	}
+
+	private IEnumerator ReturnMovement (int plyrIndex) {
+
+		if (playerIndex < 3) {
+			playerIndex++;
+		} else {
+			playerIndex = 0;
+		}
+
+    	yield return new WaitForSeconds(timeDisabled);
+       //Enable movement script
+	   eZMovement[plyrIndex].enabled = true;
+
+    }
 
 }

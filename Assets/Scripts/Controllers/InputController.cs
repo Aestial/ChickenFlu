@@ -18,47 +18,18 @@ public class InputController : MonoBehaviour
     private Player player;
     private Rigidbody rb;
     private float speed;
+    public Vector3 movement = Vector3.zero;
     public bool movementDisabled;
 
 	void Start () 
     {
         this.player = GetComponent<Player>();
 		this.rb = GetComponent<Rigidbody> ();
-        movementDisabled = false;
 	}
 	void FixedUpdate () 
     {
-        
-        if (!movementDisabled) {
-        
-            this.speed = this.speedMultiplier * this.player.Speed;
-            if (StateManager.Instance.State == GameState.Battle ||
-                StateManager.Instance.State == GameState.StressBattle)
-            {
-                Vector3 movement = Vector3.zero;
-                switch (this.name)
-                {
-                    case "Player0":
-                        movement = this.KeyboardMovement(InputType.WASD);
-                        break;
-                    case "Player1":
-                        movement = this.KeyboardMovement(InputType.Arrows);
-                        break;
-                    case "Player2":
-                        movement = this.JoyStickMovement(1);
-                        break;
-                    case "Player3":
-                        movement = this.JoyStickMovement(2);
-                        break;
-                }
-                if (movement != Vector3.zero)
-                {
-                    this.rb.velocity = (movement * this.speed);
-                    this.transform.rotation = Quaternion.LookRotation(movement);
-                }
-            }
-
-        }
+        movement = this.KeyboardMovement(InputType.WASD);
+        this.speed = this.speedMultiplier * this.player.Speed;
 
 	}
     Vector3 KeyboardMovement (InputType type) 
@@ -79,13 +50,6 @@ public class InputController : MonoBehaviour
                 return Vector3.zero;
         }
 	}
-    Vector3 JoyStickMovement(int player)
-    {
-        if (Mathf.Abs(Input.GetAxis("LeftStickX-Player" + player)) > joystickThreshold &&
-            Mathf.Abs(Input.GetAxis("LeftStickY-Player" + player)) > joystickThreshold)
-            return new Vector3(Input.GetAxis("LeftStickX-Player" + player), 0f, -Input.GetAxis("LeftStickY-Player" + player));
-        return Vector3.zero;
-    }
 
     public IEnumerator ReturnMovement () {
 
@@ -95,12 +59,4 @@ public class InputController : MonoBehaviour
 
     }
 
-    //Vector3 TouchMovement()
-    //{
-    //    if (Input.touchCount > 0)
-    //    {
-    //        return new Vector3(CnInputManager.GetAxis("Horizontal"), 0f, CnInputManager.GetAxis("Vertical"));
-    //    }
-    //    return Vector3.zero;
-    //}
 }
