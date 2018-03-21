@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct UIState
@@ -12,6 +13,8 @@ public struct UIState
 public class UIController : Singleton<UIController> 
 {
     [SerializeField] private UIState[] states;
+    [SerializeField] private GameObject eventSystem;
+
 
     private Notifier notifier;
 
@@ -36,6 +39,15 @@ public class UIController : Singleton<UIController>
             {
                 this.states[i].canvas.enabled = true;
             }
+        }
+        switch (state) {
+            case GameState.Battle: 
+            case GameState.StressBattle:
+                eventSystem.SetActive(false);
+                break;
+            default:
+                eventSystem.SetActive(true);
+                break;
         }
         // Debug.Log("UI - Setting canvas for state: " + state);
     }
