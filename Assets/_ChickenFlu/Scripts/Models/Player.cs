@@ -11,7 +11,11 @@ public enum PlayerState
     MadChicken,
     /** Dead */
     Chicken,
+//<<<<<<< HEAD:Assets/Scripts/Models/Player.cs
+    MovementDisabled,
+//=======
     Damaged
+//>>>>>>> master:Assets/_ChickenFlu/Scripts/Models/Player.cs
 }
 [System.Serializable]
 public struct StateCustoms
@@ -37,7 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer coatMesh;
     [SerializeField] private Text markerText;
     [SerializeField] private Image markerImage;
-    [SerializeField] private int number;
+    [SerializeField] private int id;
     
     private float health;
     private PlayerState state;
@@ -58,9 +62,9 @@ public class Player : MonoBehaviour
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
 
-    public int Number
+    public int Id
     {
-        get { return number; }
+        get { return id; }
         set { Config(value); }
     }
     public PlayerState State
@@ -106,13 +110,13 @@ public class Player : MonoBehaviour
 
     private void Config(int num)
     {
-        this.number = num;
-        this.name = "Player" + this.number.ToString();
-        this.texture = playerCustoms[this.number].texture;
-        this.color = playerCustoms[this.number].color;
+        this.id = num;
+		this.name = "Player" + this.id.ToString();
+        this.texture = playerCustoms[this.id].texture;
+		this.color = playerCustoms[this.id].color;
         this.transform.LookAt(new Vector3(0, this.transform.position.y, 0));
         this.coatMesh.material.mainTexture = this.texture;
-        this.markerText.text = (this.number + 1) + "P";
+		this.markerText.text = (this.id + 1) + "P";
         this.markerText.color = this.color;
         this.markerImage.color = this.color;
     }
@@ -127,7 +131,7 @@ public class Player : MonoBehaviour
     {
         if (this.health <= 0.0f) 
         {
-            Debug.Log("Player " + this.number + " is dead!");
+			Debug.Log("Player " + this.id + " is dead!");
             notifier.Notify(ON_DIE);
             AudioManager.Instance.PlayOneShoot(dieSoundFX, this.transform.position);
             Instantiate(dieFX,this.transform.position + new Vector3(0, 1), Quaternion.identity);
@@ -181,4 +185,5 @@ public class Player : MonoBehaviour
     {
         notifier.UnsubcribeAll();
     }
+
 }

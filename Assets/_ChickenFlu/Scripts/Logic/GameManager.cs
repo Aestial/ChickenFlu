@@ -59,7 +59,7 @@ public class GameManager : Singleton<GameManager>
                 Vector3 position = this.spawnPositions.GetChild(i).position;
                 Quaternion rotation = Quaternion.identity;
                 this.players[i] = Instantiate<Player>(this.playerPrefab, position, rotation);
-                this.players[i].Number = i;
+                this.players[i].Id = i;
                 this.players[i].Playable = i < this.numPlayers;
                 this.players[i].UI = this.healthPanel.GetChild(i).GetComponent<PlayerUIController>();
             }

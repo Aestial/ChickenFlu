@@ -25,7 +25,7 @@ public class FluTransmission : MonoBehaviour
             if (other.CanBeInfected)
             {
                 //Debug.Log("Flu Trans - Transmited to: " + other.transform.name);    
-                GameManager.Instance.Infect(other.Number);
+				GameManager.Instance.Infect(other.Id);
                 AudioManager.Instance.PlayOneShoot(audioFX, other.transform.position);
                 Instantiate(particleFX, other.transform.position + new Vector3(0, 1), Quaternion.identity);
                 StartCoroutine(this.InfectSafe());
