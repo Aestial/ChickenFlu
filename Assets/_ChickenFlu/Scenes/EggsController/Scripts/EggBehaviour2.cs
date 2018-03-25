@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EggBehaviour2 : MonoBehaviour {
 
-	public int eggIdentifyer;				//To identiffy the player eggs and prevent the collision
+	public int eggIdentifier;				//To identiffy the player eggs and prevent the collision
 	public GameObject openParticles;
 	//private Animator animator;
 
@@ -16,9 +16,9 @@ public class EggBehaviour2 : MonoBehaviour {
 
 		if (other.transform.tag == "Player") {
 
-			int eggId = other.transform.GetComponent<EggController>().eggIdentifier;
+			int eggId = other.transform.GetComponent<Player>().Id;
 
-			if (eggIdentifyer != eggId) {
+			if (eggIdentifier != eggId) {
 				float randomValue = Random.value;
 				Debug.Log ("Egg hit player");
 				StartCoroutine(SpawnItem(randomValue));

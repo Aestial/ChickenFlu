@@ -14,7 +14,6 @@ public class EggController : MonoBehaviour {
 	public int forceMultiply;
 	private int eggIndex;
 	private GameObject[] eggAmmo;
-	public int eggIdentifier;
 	private AudioSource audioSource;
 	public AudioClip audioClip;
 
@@ -28,7 +27,7 @@ public class EggController : MonoBehaviour {
 
 		for (int i = 0; i < ammoLimit; i++) {
 			eggAmmo[i] = Instantiate(eggPrefab, eggSource.position, Quaternion.identity);
-			eggAmmo[i].GetComponent<EggBehaviour2>().eggIdentifyer = eggIdentifier;
+			eggAmmo [i].GetComponent<EggBehaviour2>().eggIdentifier = gameObject.GetComponent<Player>().Id;
 			eggAmmo[i].SetActive(false);
 		}
 		
@@ -37,7 +36,7 @@ public class EggController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (this.name == "Player0") {
+		/*if (this.name == "Player0") {
 
 			if (Input.GetKeyDown(KeyCode.Space) && (eggIndex < ammoLimit)) {
 
@@ -53,6 +52,25 @@ public class EggController : MonoBehaviour {
 				eggIndex++; 
 
 			}
+
+		}*/
+
+	}
+
+	public void ThrowEgg () {
+
+		if (eggIndex < ammoLimit) {
+
+			Vector3 fwd = transform.TransformDirection(Vector3.forward);
+			audioSource.PlayOneShot(audioClip);
+			eggAmmo[eggIndex].SetActive(true);
+			eggAmmo[eggIndex].transform.position = eggSource.transform.position;
+			Rigidbody eggRgbd = eggAmmo[eggIndex].GetComponent<Rigidbody>();
+			playerRdbd.AddExplosionForce(explosionForce, eggSource.position, explosionRadius, upwardsModifier, ForceMode.Force);
+			eggRgbd.AddForceAtPosition(fwd * forceMultiply, eggSource.position, ForceMode.Force);
+			eggRgbd.useGravity = true;
+			eggAmmo[eggIndex].GetComponent<SphereCollider>().isTrigger = false;
+			eggIndex++; 
 
 		}
 

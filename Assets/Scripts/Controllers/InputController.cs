@@ -1,62 +1,48 @@
 ﻿using UnityEngine;
 using CnControls;
-using System.Collections;
+using Rewired;
 
 public class InputController : MonoBehaviour 
 {
-    [SerializeField] private float joystickThreshold = 0.085f;
-    [SerializeField] private float keyboardThreshold = 0.05f;
-    [SerializeField] private float speedMultiplier = 4f;
+    public int playerId = 0;
 
-    private enum InputType
-    {
-        WASD,
-        Arrows,
-        TouchJoystick,
-        Joystick
-    }
+    [SerializeField] private float speedMultiplier = 4f;
+    
+    public Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
     private Player player;
     private Rigidbody rb;
+
+	private EggController egg;
     private float speed;
-    public Vector3 movement = Vector3.zero;
-    public bool movementDisabled;
 
 	void Start () 
     {
         this.player = GetComponent<Player>();
 		this.rb = GetComponent<Rigidbody> ();
+		this.egg = GetComponent<EggController>();
+		this.playerId = this.player.Id;
 	}
-	void FixedUpdate () 
+	void FixedUpdate ()
     {
-        movement = this.KeyboardMovement(InputType.WASD);
+        if(!ReInput.isReady) return; // Exit if Rewired isn't ready. This would only happen during a script recompile in the editor.
+        if(player == null) return;
         this.speed = this.speedMultiplier * this.player.Speed;
-
-	}
-    Vector3 KeyboardMovement (InputType type) 
-    {
-        switch(type)
+        if (StateManager.Instance.State == GameState.Battle ||
+            StateManager.Instance.State == GameState.StressBattle)
         {
-            case InputType.Arrows:
-                if (Mathf.Abs(Input.GetAxis("KHorizontal")) > keyboardThreshold || 
-                    Mathf.Abs(Input.GetAxis("KVertical")) > keyboardThreshold)
-                    return new Vector3(Input.GetAxis("KHorizontal"), 0f, Input.GetAxis("KVertical"));
-                return Vector3.zero;
-            case InputType.WASD:
-                if (Mathf.Abs(Input.GetAxis("LKHorizontal")) > keyboardThreshold || 
-                    Mathf.Abs(Input.GetAxis("LKVertical")) > keyboardThreshold)
-                    return new Vector3(Input.GetAxis("LKHorizontal"), 0f, Input.GetAxis("LKVertical"));
-                return Vector3.zero;
-            default:
-                return Vector3.zero;
+            Vector3 moveVector = Vector3.zero;
+            moveVector.x = rp.GetAxis("Move Horizontal"); // get input by name or action id
+            moveVector.z = rp.GetAxis("Move Vertical");
+            bool fire = rp.GetButtonDown("Fire");
+            
+            if (moveVector != Vector3.zero)
+            {
+                this.rb.velocity = (moveVector * this.speed);
+                this.transform.rotation = Quaternion.LookRotation(moveVector);
+            }
         }
+		if (rp.GetButtonDown ("Fire")) {
+			egg.ThrowEgg ();
+		}
 	}
-
-    public IEnumerator ReturnMovement () {
-
-        movementDisabled = true;
-        yield return new WaitForSeconds(2);
-        movementDisabled = false;
-
-    }
-
 }

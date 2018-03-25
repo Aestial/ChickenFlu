@@ -34,7 +34,7 @@ public class AnimController : MonoBehaviour
             if (this.animatorStates[i].state == this.player.State)
             {
                 this.anim = this.animatorStates[i].animator;
-                //this.anim.SetFloat(floatName, value);    
+                this.anim.SetFloat(floatName, value);    
             }
         }
     }
@@ -46,7 +46,7 @@ public class AnimController : MonoBehaviour
             if (this.animatorStates[i].state == this.player.State)
             {
                 this.anim = this.animatorStates[i].animator;
-                //this.anim.SetBool(boolName, value);
+                this.anim.SetBool(boolName, value);
             }
         }
     }

@@ -11,7 +11,7 @@ public class EggBehaviour : MonoBehaviour {
 
 		if (other.transform.tag == "Player") {
 
-			int eggId = other.transform.GetComponent<EggController>().eggIdentifier;
+			int eggId = other.transform.GetComponent<Player>().Id;
 
 			if (eggIdentifyer != eggId) {
 				float randomValue = Random.value;

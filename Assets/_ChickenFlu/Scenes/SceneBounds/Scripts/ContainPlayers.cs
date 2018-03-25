@@ -24,7 +24,7 @@ public class ContainPlayers : MonoBehaviour {
 	private Rigidbody rgbd;
 	public Vector3 explotionOffset;				//Offset to generate the explotion to pull back the player to the battlefield, depends of the wall orientation
 
-	private EZMovement[] eZMovement = new EZMovement[4];
+	private InputController[] inputController = new InputController[4];
 	private int playerIndex;
 	public float timeDisabled;
 	//public GameObject testObj;
@@ -110,8 +110,8 @@ public class ContainPlayers : MonoBehaviour {
 
 	private void DisableMovement(GameObject other) {
 
-		eZMovement[playerIndex] = other.GetComponent<EZMovement>();
-		eZMovement[playerIndex].enabled = false;
+		inputController[playerIndex] = other.GetComponent<InputController>();
+		inputController[playerIndex].enabled = false;
 
 		//Disable movement script
 		StartCoroutine(ReturnMovement(playerIndex));
@@ -126,8 +126,8 @@ public class ContainPlayers : MonoBehaviour {
 		}
 
     	yield return new WaitForSeconds(timeDisabled);
-       //Enable movement script
-	   eZMovement[plyrIndex].enabled = true;
+       	//Enable movement script
+		inputController[plyrIndex].enabled = true;
 
     }
 

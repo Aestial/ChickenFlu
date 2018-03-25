@@ -193,10 +193,10 @@ GameObject:
   - component: {fileID: 195840370532044442}
   - component: {fileID: 114522089481531792}
   - component: {fileID: 114669106729890298}
-  - component: {fileID: 114628534727811834}
   - component: {fileID: 82521930724021812}
+  - component: {fileID: 114265555476833480}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_Egg
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3233,6 +3233,19 @@ MonoBehaviour:
   markerText: {fileID: 114430905392368278}
   markerImage: {fileID: 114304654827288844}
   number: 0
+--- !u!114 &114265555476833480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1160457443797412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402ceb9d9f86d4f6a861010f6cb6662e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
+  speedMultiplier: 4
 --- !u!114 &114304654827288844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3367,19 +3380,6 @@ MonoBehaviour:
   infectSafeTime: 1
   particleFX: {fileID: 1779881074926358, guid: 04e4075dd00a5415b80d9eb793a82a17, type: 2}
   audioFX: {fileID: 8300000, guid: a7c6703090dc54656ac6b3128433aaaf, type: 3}
---- !u!114 &114628534727811834
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1160457443797412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1254ba14901be4cbb4788127e480c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.08
-  rotateSpeed: 4
 --- !u!114 &114668242777279480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3412,7 +3412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eggPrefab: {fileID: 1588055911066596, guid: 4492430d95b764942a59eedb6cc17c9a, type: 2}
-  ammoLimit: 99
+  ammoLimit: 3
   eggSource: {fileID: 4160103736823026}
   explosionForce: 150
   explosionRadius: 8
