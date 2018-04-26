@@ -38,16 +38,16 @@ public class FluTransmission : MonoBehaviour
         AudioManager.Instance.PlayOneShoot(audioFX, other.transform.position);  
         Instantiate(particleFX, other.transform.position + new Vector3(0, 1), Quaternion.identity);
     }
-    public void PlayEffect() 
-    {
-        this.player.Mutate(PlayerState.Infected);
-        Vector3 headPos = this.transform.position + new Vector3(0, headHeight);
-        Vector3 offset = headPos - Camera.main.transform.position;
-        offset = -offset.normalized;
-        Instantiate(particleFX, headPos + offset, Quaternion.identity);
-        AudioManager.Instance.PlayOneShoot(audioFX, this.transform.position);  
+    // public void PlayEffect() 
+    // {
+    //     this.player.Mutate(PlayerState.Infected);
+    //     Vector3 headPos = this.transform.position + new Vector3(0, headHeight);
+    //     Vector3 offset = headPos - Camera.main.transform.position;
+    //     offset = -offset.normalized;
+    //     Instantiate(particleFX, headPos + offset, Quaternion.identity);
+    //     AudioManager.Instance.PlayOneShoot(audioFX, this.transform.position);  
 
-    }
+    // }
     private IEnumerator InfectSafe()
     {
         this.player.CanBeInfected = false;

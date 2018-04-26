@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 198841781786156066}
   - component: {fileID: 199024289157355788}
   m_Layer: 0
-  m_Name: ExplosionToxic
+  m_Name: ToxicSneeze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

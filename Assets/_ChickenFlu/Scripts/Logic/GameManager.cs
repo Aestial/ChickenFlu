@@ -60,8 +60,9 @@ public class GameManager : Singleton<GameManager>
                 Quaternion rotation = Quaternion.identity;
                 this.players[i] = Instantiate<Player>(this.playerPrefab, position, rotation);
                 this.players[i].Id = i;
-                this.players[i].Playable = i < this.numPlayers;
-                this.players[i].UI = this.healthPanel.GetChild(i).GetComponent<PlayerUIController>();
+                // Change this shit!!
+                // this.players[i].Playable = i < this.numPlayers;
+                // this.players[i].UI = this.healthPanel.GetChild(i).GetComponent<PlayerUIController>();
             }
             StartCoroutine(this.SpinRoulette());
             AudioManager.Instance.PlayOneShoot2D(this.startSound, 0.5f);
@@ -110,7 +111,8 @@ public class GameManager : Singleton<GameManager>
         else if (remain <= 1)
         {
             this.CheckWinner();
-            this.winner.Win();
+            // TODO: CHENGE THIS SHIT
+            // this.winner.Win();
             // TODO: Not working
             this.players[this.infected].Mutate(PlayerState.Chicken);
             //

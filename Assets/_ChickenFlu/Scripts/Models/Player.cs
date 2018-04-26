@@ -11,11 +11,7 @@ public enum PlayerState
     MadChicken,
     /** Dead */
     Chicken,
-//<<<<<<< HEAD:Assets/Scripts/Models/Player.cs
-    MovementDisabled,
-//=======
     Damaged
-//>>>>>>> master:Assets/_ChickenFlu/Scripts/Models/Player.cs
 }
 [System.Serializable]
 public struct StateCustoms
@@ -24,23 +20,16 @@ public struct StateCustoms
     public Transform mesh;
     public float speed;
 }
-[System.Serializable]
-public struct PlayerCustoms
-{
-    public Texture texture;
-    public Color color;
-}
 
 public class Player : MonoBehaviour 
 {
+    [SerializeField] private AudioClip sneezeAudioFX;
+    [SerializeField] private GameObject sneezeFX;
+    [SerializeField] private float headHeight = 0.6f;
     [SerializeField] private float infectedDamage;
     [SerializeField] private StateCustoms[] stateCustoms;
-    [SerializeField] private PlayerCustoms[] playerCustoms;
     [SerializeField] private AudioClip dieSoundFX;
     [SerializeField] private GameObject dieFX;
-    [SerializeField] private SkinnedMeshRenderer coatMesh;
-    [SerializeField] private Text markerText;
-    [SerializeField] private Image markerImage;
     [SerializeField] private int id;
     
     private float health;
@@ -49,16 +38,10 @@ public class Player : MonoBehaviour
     private bool canBeInfected;
     private Transform mesh;
     private Transform botarga;
-    private Texture texture;
-    private Color color;
     private bool playable;
 
     private AnimController anim;
-    private InputController input;
-    private AIController ai;
-
-    private PlayerUIController ui;
-
+ 
     private Notifier notifier;
     public const string ON_DIE = "OnDie";
 
@@ -81,11 +64,6 @@ public class Player : MonoBehaviour
     {
         get { return canBeInfected; }
         set { canBeInfected = value; }
-    }
-    public PlayerUIController UI
-    {
-        get { return ui; }
-        set { ui = value; }
     }
     public bool Playable 
     {
@@ -112,20 +90,10 @@ public class Player : MonoBehaviour
     {
         this.id = num;
 		this.name = "Player" + this.id.ToString();
-        this.texture = playerCustoms[this.id].texture;
-		this.color = playerCustoms[this.id].color;
-        this.transform.LookAt(new Vector3(0, this.transform.position.y, 0));
-        this.coatMesh.material.mainTexture = this.texture;
-		this.markerText.text = (this.id + 1) + "P";
-        this.markerText.color = this.color;
-        this.markerImage.color = this.color;
     }
     private void ControlConfig(bool playable)
     {
         this.anim = GetComponent<AnimController>();
-        this.input= GetComponent<InputController>();
-        this.ai = GetComponent<AIController>();
-        this.ai.enabled = !playable;
     }
     private void CheckHealth()
     {
@@ -143,7 +111,6 @@ public class Player : MonoBehaviour
     {
         this.health += amount;
         this.CheckHealth();
-        this.ui.UpdateHealth(this.health);
     }
 
     public void Mutate(PlayerState newState)
@@ -151,12 +118,7 @@ public class Player : MonoBehaviour
         this.state = newState;
         if (this.state == PlayerState.Infected)
         {
-            this.botarga = stateCustoms[(int)this.state].mesh;
-            this.botarga.gameObject.SetActive(true);
-        }
-        else if (this.state == PlayerState.Damaged)
-        {
-            
+            this.MutateEffect();
         }
         else
         {
@@ -166,6 +128,17 @@ public class Player : MonoBehaviour
             this.mesh.gameObject.SetActive(true);       
         }
         this.speed = stateCustoms[(int)this.state].speed;
+    }
+
+    private void MutateEffect() 
+    {
+        this.botarga = stateCustoms[(int)this.state].mesh;
+        this.botarga.gameObject.SetActive(true);
+        Vector3 headPos = this.transform.position + new Vector3(0, headHeight);
+        Vector3 offset = headPos - Camera.main.transform.position;
+        offset = -offset.normalized;
+        Instantiate(sneezeFX, headPos + offset, Quaternion.identity);
+        AudioManager.Instance.PlayOneShoot(sneezeAudioFX, this.transform.position);  
     }
 
     public void Win()
