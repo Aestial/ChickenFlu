@@ -109,8 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c189fa57c3b3a484b8e9f585683980b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefab:
-  - {fileID: 1314142146670966, guid: b848d12fca22da845a09921632a40a97, type: 2}
-  - {fileID: 1314142146670966, guid: b848d12fca22da845a09921632a40a97, type: 2}
-  - {fileID: 1314142146670966, guid: b848d12fca22da845a09921632a40a97, type: 2}
-  - {fileID: 1314142146670966, guid: b848d12fca22da845a09921632a40a97, type: 2}
+  weaponsContainer: {fileID: 0}
+  weapon: []
+  explotionDelay: 0.5
+  bulletForce: 1400
+  bulletRadius: 8
+  explotionOffset: {x: -0.5, y: 0, z: 0}

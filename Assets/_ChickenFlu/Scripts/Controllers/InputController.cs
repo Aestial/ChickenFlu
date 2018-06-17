@@ -5,18 +5,22 @@ using Rewired;
 public class InputController : MonoBehaviour 
 {
     public int playerId = 0;
+
     [SerializeField] private float speedMultiplier = 4f;
     
     public Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
     private Player player;
     private Rigidbody rb;
+
+	private EggController egg;
     private float speed;
 
 	void Start () 
     {
         this.player = GetComponent<Player>();
 		this.rb = GetComponent<Rigidbody> ();
-        this.playerId = this.player.Number;
+		this.egg = GetComponent<EggController>();
+		this.playerId = this.player.Id;
 	}
 	void FixedUpdate ()
     {
@@ -37,5 +41,8 @@ public class InputController : MonoBehaviour
                 this.transform.rotation = Quaternion.LookRotation(moveVector);
             }
         }
+		if (rp.GetButtonDown ("Fire")) {
+			egg.ThrowEgg ();
+		}
 	}
 }

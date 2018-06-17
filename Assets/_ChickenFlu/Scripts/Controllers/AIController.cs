@@ -8,6 +8,8 @@ public class AIController : MonoBehaviour
     [SerializeField] private float multiplier = 4.0f;
 
     private Player player;
+    private int index;
+    private GameObject[] players;
     private Rigidbody rb;
     private NavMeshAgent agent;
     private Transform target;
@@ -23,6 +25,8 @@ public class AIController : MonoBehaviour
     void Start()
     {
         this.target = GameObject.Find("Player0").transform;
+        this.players = GameObject.FindGameObjectsWithTag("Player");
+        this.index = this.player.Id;
         this.agent.updatePosition = false;
         this.agent.updateRotation = false;
     }
@@ -38,6 +42,7 @@ public class AIController : MonoBehaviour
             if (this.player.State == PlayerState.Infected ||
                 this.player.State == PlayerState.MadChicken)
             {
+                this.target = this.FindNearest();
                 this.agent.SetDestination(target.position);
             } 
             else
@@ -61,6 +66,28 @@ public class AIController : MonoBehaviour
             this.agent.enabled = false;    
         }
     }
+
+    private Transform FindNearest()
+    {
+        Vector3 position = this.transform.position;
+        Transform nearest = this.players[0].transform;
+        float distance = Vector3.Distance(position, nearest.transform.position);
+        for (int i = 0; i < this.players.Length; i++) 
+        {
+            if (this.index != i)
+            {
+                Transform other = this.players[i].transform;
+                float otherDistance = Vector3.Distance(position, other.position);
+                if (otherDistance < distance) 
+                {
+                    distance = otherDistance;
+                    nearest = other;
+                }
+            }
+        }
+        return nearest;
+    }
+
     void OnDisable()
     {
         this.agent.enabled = false;
