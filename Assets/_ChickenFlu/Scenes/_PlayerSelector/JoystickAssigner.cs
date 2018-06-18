@@ -9,7 +9,6 @@ namespace JoystickControl
     {
         [SerializeField] private JoystickCanvas m_CanvasController;
         [SerializeField] private AudioClip selectedClip;
-        [SerializeField] private AudioClip enabledClip;
 
         void Update()
         {
