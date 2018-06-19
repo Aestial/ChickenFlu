@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 504648874}
   - component: {fileID: 504648875}
   m_Layer: 0
-  m_Name: Audio
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -604,7 +604,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &504648875
 MonoBehaviour:
@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 689535817}
   - component: {fileID: 689535816}
   m_Layer: 5
-  m_Name: CCanvas
+  m_Name: JoysticksCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,6 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readyFXClip: {fileID: 8300000, guid: a7c6703090dc54656ac6b3128433aaaf, type: 3}
+  UI: {fileID: 2013002181}
 --- !u!114 &879092250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,7 +1032,7 @@ MonoBehaviour:
     - _id: 2
       _name: Player1
       _descriptiveName: Player1
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -1046,7 +1047,7 @@ MonoBehaviour:
     - _id: 5
       _name: Player2
       _descriptiveName: Player2
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -1061,7 +1062,7 @@ MonoBehaviour:
     - _id: 6
       _name: Player3
       _descriptiveName: Player3
-      _startPlaying: 0
+      _startPlaying: 1
       _defaultJoystickMaps:
       - _enabled: 1
         _categoryId: 0
@@ -1223,6 +1224,108 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+    - id: 5
+      categoryId: 0
+      layoutId: 0
+      name: 
+      hardwareGuidString: cd9718bf-a87a-44bc-8716-60a0def28a9f
+      customControllerUid: 0
+      actionElementMaps:
+      - _actionCategoryId: 0
+        _actionId: 0
+        _elementType: 0
+        _elementIdentifierId: 0
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 1
+        _elementType: 0
+        _elementIdentifierId: 1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 2
+        _elementType: 1
+        _elementIdentifierId: 6
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 4
+        _elementType: 1
+        _elementIdentifierId: 13
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+    - id: 6
+      categoryId: 0
+      layoutId: 0
+      name: 
+      hardwareGuidString: 00000000-0000-0000-0000-000000000000
+      customControllerUid: 0
+      actionElementMaps:
+      - _actionCategoryId: 0
+        _actionId: 0
+        _elementType: 0
+        _elementIdentifierId: 0
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 1
+        _elementType: 0
+        _elementIdentifierId: 1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 2
+        _elementType: 1
+        _elementIdentifierId: 32
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 4
+        _elementType: 1
+        _elementIdentifierId: 41
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     keyboardMaps:
     - id: 0
       categoryId: 0
@@ -1356,11 +1459,11 @@ MonoBehaviour:
     actionCategoryIdCounter: 2
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 2
-    joystickLayoutIdCounter: 1
+    joystickLayoutIdCounter: 2
     keyboardLayoutIdCounter: 2
     mouseLayoutIdCounter: 1
     customControllerLayoutIdCounter: 1
-    joystickMapIdCounter: 5
+    joystickMapIdCounter: 7
     keyboardMapIdCounter: 3
     mouseMapIdCounter: 0
     customControllerMapIdCounter: 0
@@ -1378,7 +1481,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &879092252
 MonoBehaviour:
@@ -1386,7 +1489,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 879092248}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 057c166906e924e9a914fb86da58e8b6, type: 3}
   m_Name: 
@@ -1764,7 +1867,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1049653636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2357,7 +2460,7 @@ GameObject:
   - component: {fileID: 1606223501}
   - component: {fileID: 1606223500}
   m_Layer: 5
-  m_Name: BCanvas
+  m_Name: BackgroundCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2596,6 +2699,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2013002179}
+  - component: {fileID: 2013002182}
   - component: {fileID: 2013002181}
   - component: {fileID: 2013002180}
   m_Layer: 0
@@ -2643,6 +2747,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29420c084020f40a1847dea67172d150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenCanvases:
+  - {fileID: 1049653638}
+  - {fileID: 689535818}
+--- !u!114 &2013002182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2013002178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dc19766ab1a498985528eb85ce55bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2044035286

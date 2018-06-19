@@ -25,11 +25,5 @@ namespace JoystickControl
 
             this.state = state;
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }

@@ -24,7 +24,7 @@ namespace JoystickControl
             for (int i = 0; i < joysticks.Count; i++)
             {
                 Joystick joystick = joysticks[i];
-                Debug.Log(joystick.type + " " + joystick.id + ": " + joystick.hardwareName);
+                Debug.Log(joystick.type + " " + joystick.id + ": " + joystick.name + ". Hardware: " + joystick.hardwareName);
             }
         }
         private void DetectJoysticks()
@@ -57,6 +57,7 @@ namespace JoystickControl
                     if (player == null)
                         return;
                     player.controllers.AddController(joystick, false);
+                    Debug.Log(player.isPlaying);
                     AudioManager.Instance.PlayOneShoot2D(selectedClip);
                 }
             }
