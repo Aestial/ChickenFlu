@@ -120,12 +120,13 @@ public class Player : MonoBehaviour
         this.markerText.color = this.color;
         this.markerImage.color = this.color;
     }
-    private void ControlConfig(bool playable)
+    private void ControlConfig(bool value)
     {
         this.anim = GetComponent<AnimController>();
         this.input= GetComponent<InputController>();
         this.ai = GetComponent<AIController>();
-        this.ai.enabled = !playable;
+        this.input.enabled = value;
+        this.ai.enabled = !value;
     }
     private void CheckHealth()
     {

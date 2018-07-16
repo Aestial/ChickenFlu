@@ -9,18 +9,18 @@ namespace JoystickControl
 	{
 		[SerializeField] private AudioClip readyFXClip;
 		[SerializeField] private UIScreenManager UI;
+        [SerializeField] private JoystickAssigner assigner;
 
-		// Use this for initialization
-		void Start ()
+        void Start()
+        {
+            this.assigner.enabled = false;
+        }
+
+        // Update is called once per frame
+        void Update () 
 		{
-			
-		}
-		
-		// Update is called once per frame
-		void Update () 
-		{
-			if (!ReInput.isReady)
-				return;
+            if (!ReInput.isReady)
+                return;
 			this.CheckJoystickInput();
 			// this.CheckPlayerInput();	
 		}
@@ -34,11 +34,15 @@ namespace JoystickControl
 				if (joystick.GetAnyButtonDown())
 				{
 					AudioManager.Instance.PlayOneShoot2D(this.readyFXClip);
+                    Debug.Log("Someone pressed a button!");
+                    this.assigner.enabled = true;
 					this.UI.ChangeScreen(1);
+                    this.enabled = false;
 				}
 			}
 		}
 
+        // Player specific
 		private void CheckPlayerInput()
 		{
 			for(int i = 0; i < ReInput.players.playerCount; i++) 

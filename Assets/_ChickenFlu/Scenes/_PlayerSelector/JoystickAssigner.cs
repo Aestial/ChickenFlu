@@ -10,14 +10,23 @@ namespace JoystickControl
         [SerializeField] private JoystickCanvas m_CanvasController;
         [SerializeField] private AudioClip selectedClip;
 
+        private int players;
+
+        void OnEnable()
+        {
+            this.players = 0;
+            this.DebugJoysticks();
+        }
+
         void Update()
         {
             if (!ReInput.isReady)
                 return;
-            this.DebugJoysticks();
             this.DetectJoysticks();
             this.AssignJoysticks();
+            this.CheckPlayerInput();
         }
+
         private void DebugJoysticks()
         {
             IList<Joystick> joysticks = ReInput.controllers.Joysticks;
@@ -53,21 +62,41 @@ namespace JoystickControl
                 }
                 if (joystick.GetAnyButtonDown())
                 {
-                    Rewired.Player player = FindPlayerWithoutJoystick();
-                    if (player == null)
-                        return;
+                    Rewired.Player player = ReInput.players.Players[i];
+                    //Rewired.Player player = FindPlayerWithoutJoystick();
+                    //if (player == null)
+                        //return;
+                    players++;
+                    Debug.Log("Joined: " + player.descriptiveName);
                     player.controllers.AddController(joystick, false);
-                    Debug.Log(player.isPlaying);
+                    Debug.Log(player.descriptiveName + " is playing: " + player.isPlaying);
                     AudioManager.Instance.PlayOneShoot2D(selectedClip);
+
                 }
             }
             // If all players have joysticks, enable joystick auto-assignment
             // so controllers are re-assigned correctly when a joystick is disconnected
             // and re-connected and disable this script
-            if (DoAllPlayersHaveJoysticks())
+            //if (DoAllPlayersHaveJoysticks())
+            //{
+            //    ReInput.configuration.autoAssignJoysticks = true;
+            //    this.enabled = false; // disable this script
+            //    MenuManager.Instance.ChangeScene(1);
+            //}
+        }
+
+        private void CheckPlayerInput()
+        {
+            for (int i = 0; i < ReInput.players.playerCount; i++)
             {
-                ReInput.configuration.autoAssignJoysticks = true;
-                this.enabled = false; // disable this script
+                if (ReInput.players.GetPlayer(i).GetButtonDown("Start"))
+                {
+                    Debug.Log("Some fucker pressed start!");
+                    ReInput.configuration.autoAssignJoysticks = true;
+                    this.enabled = false; // disable this script
+                    PlayerPrefs.SetInt("Players", this.players);
+                    MenuManager.Instance.ChangeScene(1);
+                }
             }
         }
 
