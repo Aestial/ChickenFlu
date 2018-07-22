@@ -3255,13 +3255,13 @@ MonoBehaviour:
     mesh: {fileID: 4493895462242150}
     speed: 0.8
   playerCustoms:
-  - texture: {fileID: 2800000, guid: daad954ae25d64419a9b36620e8e38c8, type: 3}
+  - texture: {fileID: 2800000, guid: 8fe70cc99d7ad44f8a8dac24b95298db, type: 3}
     color: {r: 0.22352941, g: 0.5149702, b: 0.9985246, a: 1}
-  - texture: {fileID: 2800000, guid: ddf7c5fb427984758bfe004d156bb3e3, type: 3}
+  - texture: {fileID: 2800000, guid: 6866fb1a080654e0d84bd7349307228d, type: 3}
     color: {r: 0.9866009, g: 0.12835744, b: 0.02961363, a: 1}
-  - texture: {fileID: 2800000, guid: 023023803354940069a7ead9e1b23881, type: 3}
+  - texture: {fileID: 2800000, guid: 9a48447e9a98d437daaf1d2ea6ca0fff, type: 3}
     color: {r: 0.16146493, g: 0.8350202, b: 0.06830116, a: 1}
-  - texture: {fileID: 2800000, guid: b6b796532aad44b8e8ad665a63a1e6de, type: 3}
+  - texture: {fileID: 2800000, guid: ad2fcbd33112d466ebf7e664fbdbc7e1, type: 3}
     color: {r: 0.9942397, g: 0.7205919, b: 0.21249875, a: 1}
   dieSoundFX: {fileID: 8300000, guid: 65801aae7bf1041bcbc6c5c352602d81, type: 3}
   dieFX: {fileID: 1779881074926358, guid: 0b332447c3cbd4d2f9bc046ab5de8bb1, type: 2}
