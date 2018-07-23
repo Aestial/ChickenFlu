@@ -28,10 +28,9 @@ public class StateManager : Singleton<StateManager>
         set { SetState(value); }
     }
 
-    void Start()
+    void Awake()
     {
         notifier = new Notifier();
-        state = GameState.Start;
     }
     private void SetState(GameState newState)
     {

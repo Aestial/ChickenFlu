@@ -6,5 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_ChickenFlu/Scenes/_PlayerSelector/PlayerSelector.unity
+    guid: 1b28d2e5d62a5452893e1ffcb7a79f9d
+  - enabled: 1
     path: Assets/_ChickenFlu/Scenes/_Main/Main.unity
     guid: 20d595f6c5e112c4cb3971d089c42801
+  m_configObjects: {}
