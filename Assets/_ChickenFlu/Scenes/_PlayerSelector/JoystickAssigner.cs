@@ -8,14 +8,22 @@ namespace JoystickControl
     public class JoystickAssigner : MonoBehaviour
     {
         [SerializeField] private JoystickCanvas m_CanvasController;
+        [SerializeField] private GameObject m_StartPanel;
         [SerializeField] private AudioClip selectedClip;
+        [SerializeField] private Canvas loadingCanvas;
 
         private int players;
+
+        void Awake()
+        {
+            this.loadingCanvas.enabled = false;
+        }
 
         void OnEnable()
         {
             this.players = 0;
             this.DebugJoysticks();
+            this.EnableStart(false);
         }
 
         void Update()
@@ -71,7 +79,7 @@ namespace JoystickControl
                     player.controllers.AddController(joystick, false);
                     Debug.Log(player.descriptiveName + " is playing: " + player.isPlaying);
                     AudioManager.Instance.PlayOneShoot2D(selectedClip);
-
+                    this.EnableStart(true);
                 }
             }
             // If all players have joysticks, enable joystick auto-assignment
@@ -85,6 +93,12 @@ namespace JoystickControl
             //}
         }
 
+        private void EnableStart(bool active)
+        {
+            this.m_StartPanel.SetActive(active);
+
+        }
+
         private void CheckPlayerInput()
         {
             for (int i = 0; i < ReInput.players.playerCount; i++)
@@ -95,6 +109,7 @@ namespace JoystickControl
                     ReInput.configuration.autoAssignJoysticks = true;
                     this.enabled = false; // disable this script
                     PlayerPrefs.SetInt("Players", this.players);
+                    this.loadingCanvas.enabled = true;
                     MenuManager.Instance.ChangeScene(1);
                 }
             }

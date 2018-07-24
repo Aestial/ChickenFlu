@@ -40,15 +40,6 @@ public class GameManager : Singleton<GameManager>
         notifier.Subscribe(RouletteController.ON_FINISH_SELECTED, HandleOnSelectedInfected);
 
 	}
-    private void Update()
-    {
-        if ( StateManager.Instance.State == GameState.End &&
-            Input.GetKeyUp(KeyCode.Return))
-        {
-            // TODO: Change This!
-            SceneManager.LoadScene("Main");
-        }
-    }
 
     public void StartGame(int players) {
         if (!started) {
@@ -66,6 +57,17 @@ public class GameManager : Singleton<GameManager>
             StartCoroutine(this.SpinRoulette());
             AudioManager.Instance.PlayOneShoot2D(this.startSound, 0.5f);
         }
+    }
+
+    public void Restart()
+    {
+        int num = PlayerPrefs.GetInt("Players");
+        this.StartGame(num);
+    }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void Infect(int player)
