@@ -21,8 +21,7 @@ namespace JoystickControl
 		{
             if (!ReInput.isReady)
                 return;
-			this.CheckJoystickInput();
-			// this.CheckPlayerInput();	
+			this.CheckJoystickInput();	
 		}
 
 		private void CheckJoystickInput()
@@ -38,19 +37,6 @@ namespace JoystickControl
                     this.assigner.enabled = true;
 					this.UI.ChangeScreen(1);
                     this.enabled = false;
-				}
-			}
-		}
-
-        // Player specific
-		private void CheckPlayerInput()
-		{
-			for(int i = 0; i < ReInput.players.playerCount; i++) 
-			{
-				if(ReInput.players.GetPlayer(i).GetButtonDown("Start")) 
-				{
-					Debug.Log("Some fucker pressed start!");
-					AudioManager.Instance.PlayOneShoot2D(this.readyFXClip);
 				}
 			}
 		}
