@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Rewired;
+//using Rewired;
 
 namespace JoystickControl
 {
     public class InputActions : MonoBehaviour
     {
-
+        /*
         // Use this for initialization
         void Start()
         {
@@ -33,6 +33,7 @@ namespace JoystickControl
                 }
             }
         }
+        */
     }
 }
 

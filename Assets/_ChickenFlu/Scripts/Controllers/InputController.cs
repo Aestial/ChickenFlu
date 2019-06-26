@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using CnControls;
-using Rewired;
+//using Rewired;
 
 public class InputController : MonoBehaviour 
 {
@@ -8,13 +8,13 @@ public class InputController : MonoBehaviour
 
     [SerializeField] private float speedMultiplier = 4f;
     
-    public Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
+//    public Rewired.Player rp { get { return ReInput.isReady ? ReInput.players.GetPlayer(playerId) : null; } }
     private Player player;
     private Rigidbody rb;
 
 	private EggController egg;
     private float speed;
-
+/*
 	void Start () 
     {
         this.player = GetComponent<Player>();
@@ -45,4 +45,5 @@ public class InputController : MonoBehaviour
 			egg.ThrowEgg ();
 		}
 	}
+*/
 }

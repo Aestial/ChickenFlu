@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Rewired;
+//using Rewired;
 
 namespace JoystickControl
 {
@@ -10,7 +10,7 @@ namespace JoystickControl
 		[SerializeField] private AudioClip readyFXClip;
 		[SerializeField] private UIScreenManager UI;
         [SerializeField] private JoystickAssigner assigner;
-
+        /*
         void Start()
         {
             this.assigner.enabled = false;
@@ -40,5 +40,6 @@ namespace JoystickControl
 				}
 			}
 		}
+        */
 	}
 }

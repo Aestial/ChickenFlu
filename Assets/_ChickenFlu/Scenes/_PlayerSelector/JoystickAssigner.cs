@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Rewired;
+//using Rewired;
 
 namespace JoystickControl
 {
@@ -13,7 +13,7 @@ namespace JoystickControl
         [SerializeField] private Canvas loadingCanvas;
 
         private int players;
-
+        /*
         void Awake()
         {
             this.loadingCanvas.enabled = false;
@@ -131,5 +131,6 @@ namespace JoystickControl
         {
             return this.FindPlayerWithoutJoystick() == null;
         }
+        */
     }
 }
