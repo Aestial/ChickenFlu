@@ -26,7 +26,7 @@ public class LimitPlatform : MonoBehaviour {
         if (other.tag == "Player")
         {
             Rigidbody rigidbody = other.GetComponent<Rigidbody>();
-            rigidbody.sleepVelocity = 1;
+            rigidbody.sleepThreshold = 1;
             Player player = other.GetComponent<Player>();
             player.UpdateHealth(-dangerAmount);
             
